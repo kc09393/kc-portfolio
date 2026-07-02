@@ -1,63 +1,7 @@
 {
-  "_v": 1782978899009,
+  "_v": 1783015081257,
   "bio": "",
   "artworks": [
-    {
-      "key": "a0",
-      "title": "林境幽影",
-      "lbl": "Acrylic & Digital",
-      "sub": "Mixed Media · 2022",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a0.jpg"
-    },
-    {
-      "key": "a1",
-      "title": "抽象系列 No.1",
-      "lbl": "Oil on Canvas",
-      "sub": "Oil Painting · 2022",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a1.jpg"
-    },
-    {
-      "key": "a2",
-      "title": "抽象系列 No.2",
-      "lbl": "Oil on Canvas",
-      "sub": "Oil Painting · 2021",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a2.jpg"
-    },
-    {
-      "key": "a3",
-      "title": "靜物素描",
-      "lbl": "Pencil on Paper",
-      "sub": "Drawing · 2021",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a3.jpg"
-    },
-    {
-      "key": "a1782750463843",
-      "title": "山徑騎行",
-      "lbl": "Photography",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a1782750463843.jpg"
-    },
-    {
-      "key": "a1782751756956",
-      "title": "側顏速寫",
-      "lbl": "Sketch",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a1782751756956.jpg"
-    },
-    {
-      "key": "a1782755843571",
-      "title": "夜巷貓影",
-      "lbl": "Photography",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a1782755843571.jpg"
-    },
     {
       "key": "d0",
       "title": "木構秘境",
@@ -145,6 +89,22 @@
       "sub": "3D Art 繚 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d10.png"
+    },
+    {
+      "key": "a1782961788863",
+      "title": "Untitled",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-d8.png"
+    },
+    {
+      "key": "a1783013294537",
+      "title": "Untitled",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-d5.png"
     }
   ],
   "photos": [
