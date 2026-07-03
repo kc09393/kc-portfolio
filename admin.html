@@ -194,7 +194,20 @@ async function ghSyncState(){
       }));
     }
   });
-  if(uploads.length>0)await Promise.all(uploads);
+  var _hadUploads=uploads.length>0;
+  if(_hadUploads){
+    var _gsProg=document.getElementById('global-saved');
+    var _totalUp=uploads.length,_doneUp=0;
+    if(_gsProg){_gsProg.textContent='⏳ 上傳中…(0/'+_totalUp+')';_gsProg.classList.add('show');}
+    uploads=uploads.map(function(pr){
+      return pr.then(function(r){
+        _doneUp++;
+        if(_gsProg)_gsProg.textContent='⏳ 上傳中…('+_doneUp+'/'+_totalUp+')';
+        return r;
+      });
+    });
+    await Promise.all(uploads);
+  }
   var _failedUploads=state.artworks.filter(function(a){return a.img&&a.img.startsWith('data:');}).length
     +state.photos.filter(function(ph){return ph.img&&ph.img.startsWith('data:');}).length
     +state.certs.filter(function(c){return c.main&&c.main.startsWith('data:');}).length;
@@ -210,6 +223,10 @@ async function ghSyncState(){
     }
   } else {
     _uploadRetryCount=0;
+    if(_hadUploads){
+      var _gsDone=document.getElementById('global-saved');
+      if(_gsDone)flashSaved('✓ 圖片上傳完成',_gsDone);
+    }
   }
   var clean={
     _v:Date.now(),
