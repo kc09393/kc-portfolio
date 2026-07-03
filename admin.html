@@ -686,7 +686,7 @@ function bindAdmin(){
   // ── About Bio ──────────────────────────────────────
   var bioEdit=document.getElementById('about-bio-edit');
   if(bioEdit){
-    bioEdit.value=state.bio||document.getElementById('about-bio').textContent||'';
+    bioEdit.value=state.bio||(document.getElementById('about-bio')?document.getElementById('about-bio').textContent:'')||'';
     var btnBio=document.getElementById('btn-save-about');
     if(btnBio)btnBio.addEventListener('click',function(){
       state.bio=bioEdit.value;
