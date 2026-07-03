@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Portfolio Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style id="as">
+#adm{font-family:'Inter',sans-serif;color:#f0ede8;font-size:12.5px}
+.ap-h{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0f0f0f;z-index:2;border-radius:12px 12px 0 0}
+.ap-logo{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,169,110,.8)}
+.ap-hx{background:none;border:none;color:rgba(255,255,255,.4);font-size:18px;cursor:pointer;padding:4px 8px;transition:color .2s;line-height:1}
+.ap-export-btn{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.35);color:rgba(201,169,110,.85);font-size:9px;letter-spacing:.16em;padding:6px 14px;cursor:pointer;font-family:inherit;transition:all .22s;text-transform:uppercase;white-space:nowrap}
+.ap-export-btn:hover{background:rgba(201,169,110,.18);color:var(--gld)}
+.ap-export-btn:disabled{opacity:.45;cursor:not-allowed}
+.ap-deploy-btn{background:rgba(80,180,120,.08);border-color:rgba(80,180,120,.35);color:rgba(120,210,160,.85)}
+.ap-deploy-btn:hover{background:rgba(80,180,120,.2);color:#7dd5a0}
+.ap-pat-bar{display:flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap}
+.ap-pat-label{font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.35);white-space:nowrap}
+.ap-pat-input{flex:1;min-width:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#f0ede8;font-size:10px;padding:5px 8px;font-family:monospace;outline:none;max-width:320px}
+.ap-pat-input:focus{border-color:rgba(201,169,110,.4)}
+.ap-pat-save{background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);color:rgba(201,169,110,.8);font-size:9px;letter-spacing:.12em;padding:5px 10px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.ap-pat-save:hover{background:rgba(201,169,110,.2)}
+.ap-pat-ok{font-size:10px;white-space:nowrap}
+.ap-hx:hover{color:var(--wht)}
+.ap-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);background:#0d0d0d}
+.ap-tab{flex:1;padding:11px 8px;font-size:9.5px;letter-spacing:.1em;background:none;border:none;color:rgba(255,255,255,.32);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;font-family:inherit}
+.ap-tab.on{color:rgba(201,169,110,.9);border-bottom-color:rgba(201,169,110,.6);background:rgba(201,169,110,.04)}
+.ap-tab:hover:not(.on){color:rgba(255,255,255,.6);background:rgba(255,255,255,.03)}
+.ap-b{padding:0;overflow-y:auto;max-height:calc(85vh - 100px)}
+.ap-sec{display:none;padding:16px 20px 24px}
+.ap-sec.on{display:block}
+.ap-sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ap-sec-hdr span:first-child{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,169,110,.6)}
+.ap-count{font-size:10px;color:rgba(255,255,255,.25)}
+
+/* Item list */
+.adm-item-list{display:flex;flex-direction:column;gap:1px;margin-bottom:16px}
+.adm-item{background:#131313;border:1px solid rgba(255,255,255,.05);overflow:hidden}
+.adm-item-row{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.adm-item-thumb{width:52px;height:40px;flex-shrink:0;overflow:hidden;background:#0a0a0a;display:flex;align-items:center;justify-content:center}
+.adm-item-thumb img{width:100%;height:100%;object-fit:cover}
+.adm-no-img{font-size:8px;color:rgba(255,255,255,.2);letter-spacing:.08em}
+.adm-item-info{flex:1;min-width:0}
+.adm-item-t{font-size:11.5px;color:rgba(244,242,238,.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.adm-item-s{font-size:9px;color:rgba(255,255,255,.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adm-item-acts{display:flex;gap:4px;flex-shrink:0}
+.adm-edit-btn,.adm-rm-btn,.adm-cert-edit-btn,.adm-cert-rm{font-size:8.5px;letter-spacing:.08em;padding:5px 10px;border:1px solid rgba(255,255,255,.08);background:none;color:rgba(255,255,255,.4);cursor:pointer;transition:all .2s;font-family:inherit}
+.adm-edit-btn:hover,.adm-cert-edit-btn:hover{border-color:rgba(201,169,110,.4);color:rgba(201,169,110,.8)}
+.adm-rm-btn:hover,.adm-cert-rm:hover{border-color:rgba(255,80,80,.4);color:rgba(255,100,100,.8)}.drag-handle{cursor:grab;color:rgba(255,255,255,.16);font-size:18px;padding:0 10px 0 4px;display:flex;align-items:center;flex-shrink:0;user-select:none;letter-spacing:-2px}.drag-handle:hover{color:rgba(201,169,110,.45)}.adm-item.drag-over{background:rgba(201,169,110,.04)!important;border-left:2px solid rgba(201,169,110,.45)!important}.adm-item.drag-active{opacity:.35}
+
+/* Item layout: thumb + info + acts in a row */
+.adm-item{background:#131313;border:1px solid rgba(255,255,255,.05);overflow:hidden;display:flex;flex-wrap:wrap;align-items:center}
+.adm-item-row-wrap{display:grid;grid-template-columns:52px 1fr auto;align-items:center}
+.adm-item > .adm-item-thumb{padding:8px;height:56px;flex-shrink:0}
+.adm-item > .adm-item-info{padding:8px 10px;flex:1;min-width:0}
+.adm-item > .adm-item-acts{padding:0 10px;flex-shrink:0}
+.adm-edit-panel{display:none;padding:14px 14px 16px;border-top:1px solid rgba(255,255,255,.05);background:#0e0e0e;width:100%;flex-basis:100%}
+.adm-edit-panel.open{display:block}
+
+/* Edit panel internals */
+.aep-thumb-wrap{margin-bottom:12px}
+.aep-thumb{width:100%;height:120px;background:#111;border:1px solid rgba(255,255,255,.07);overflow:hidden}
+.aep-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.aep-save,.aep-up,.aep-dn{font-size:8.5px;letter-spacing:.1em;padding:7px 14px;border:1px solid;background:none;cursor:pointer;font-family:inherit;transition:all .2s}
+.aep-save{border-color:rgba(201,169,110,.4);color:rgba(201,169,110,.8)}
+.aep-save:hover{background:rgba(201,169,110,.1);color:var(--gld)}
+.aep-up,.aep-dn{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.35)}
+.aep-up:hover,.aep-dn:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)}
+
+/* Cert edit thumb */
+.cert-edit-thumb-slot{width:100%;height:120px;position:relative;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.07);cursor:pointer;margin-bottom:12px}
+
+/* Add form */
+.ap-add-form{border:1px solid rgba(255,255,255,.06);padding:16px;background:#0b0b0b;margin-top:4px}
+.ap-add-hdr{font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.ap-thumb-slot{position:relative;width:100%;height:110px;border:1px dashed rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;margin-bottom:12px;overflow:hidden;transition:border-color .2s;background:#0d0d0d}
+.ap-thumb-slot:hover{border-color:rgba(201,169,110,.3)}
+.ap-thumb-slot.has .slot-ph,.ap-thumb-slot.has .slot-lbl{display:none}
+.slot-ph{font-size:22px;color:rgba(255,255,255,.15)}
+.slot-lbl{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.ap-thumb-slot input[type=file]{display:none}
+
+/* Form fields */
+.f{margin-bottom:9px}
+.f label{display:block;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:5px}
+.f input,.f select,.f textarea{width:100%;background:#111;border:1px solid rgba(255,255,255,.08);color:rgba(244,242,238,.8);font-family:inherit;font-size:11.5px;padding:8px 10px;outline:none;transition:border-color .2s;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:rgba(201,169,110,.4)}
+.f select option{background:#1a1a1a}
+.f textarea{min-height:54px}
+
+/* Buttons */
+.btn-add{width:100%;padding:10px;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);color:rgba(201,169,110,.8);cursor:pointer;font-family:inherit;transition:all .25s;margin-top:4px}
+.btn-add:hover{background:rgba(201,169,110,.15);border-color:rgba(201,169,110,.5);color:var(--gld)}
+
+/* Saved message */
+.saved-msg{font-size:9.5px;letter-spacing:.14em;color:rgba(201,169,110,.8);height:0;overflow:hidden;transition:height .2s;margin-bottom:0;text-align:center}
+.saved-msg.show{height:28px;margin-bottom:4px;display:flex;align-items:center;justify-content:center}
+#global-saved{position:sticky;top:0;z-index:3;background:#0f0f0f;border-bottom:1px solid rgba(201,169,110,.1)}
+
+/* Panel wrapper */
+#adm-ov{display:none;position:fixed;inset:0;z-index:9700;background:rgba(0,0,0,.72);align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#adm{width:min(520px,94vw);max-height:88vh;background:#0f0f0f;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06)}
+
+/* Scrollbar in admin */
+#adm ::-webkit-scrollbar{width:3px}
+#adm ::-webkit-scrollbar-thumb{background:rgba(201,169,110,.25);border-radius:2px}
+</style>
+<style>
+html,body{margin:0;min-height:100vh;background:#090909}
+body{display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+<div id="adm-ov" style="display:none"></div>
+<div id="adm" style="background:#111;border:1px solid rgba(255,255,255,.07);border-radius:12px;width:440px;max-height:90vh;overflow-y:auto;box-shadow:0 40px 100px rgba(0,0,0,.8)"></div>
+<script id="admin-js">
+(function(){
+'use strict';
+
+var SAVE_KEY='kc_pf_admin_cache';
+var GH_IMGS_BASE='https://kc09393.github.io/portfolio/imgs/',GH_STATE_PATH='imgs/state.json',_ghSyncTm=null;
+function escH(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+var IDB_NAME='kc_pf_imgs',IDB_STORE='imgs',_idb=null;
+
+function openIDB(){if(_idb)return Promise.resolve(_idb);return new Promise(function(res,rej){var r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=function(e){e.target.result.createObjectStore(IDB_STORE);};r.onsuccess=function(e){_idb=e.target.result;res(_idb);};r.onerror=function(){rej(r.error);};});}
+
+function idbPut(k,v){if(_idb){try{var tx=_idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put({img:v,ts:Date.now()},k);}catch(e){}return;}openIDB().then(function(db){try{var tx=db.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put({img:v,ts:Date.now()},k);}catch(e){}}).catch(function(){});}
+
+function idbGetAll(){return openIDB().then(function(db){return new Promise(function(res){var tx=db.transaction(IDB_STORE,'readonly'),s=tx.objectStore(IDB_STORE),out={};var cr=s.openCursor();cr.onsuccess=function(e){var c=e.target.result;if(c){out[c.key]=c.value;c.continue();}else res(out);};cr.onerror=function(){res({});};});}).catch(function(){return{};});}
+
+
+function save(){
+  try{
+    var slim={_v:state._v,bio:state.bio||'',artworks:state.artworks.map(function(a){return{key:a.key,title:a.title,lbl:a.lbl,sub:a.sub,desc:a.desc,img:(a.img&&!a.img.startsWith('data:'))?a.img:''};}),photos:state.photos.map(function(p){return{key:p.key,title:p.title,sub:p.sub,desc:p.desc,img:(p.img&&!p.img.startsWith('data:'))?p.img:''};}),certs:state.certs.map(function(c){return{key:c.key,title:c.title,sub:c.sub,cat:c.cat,desc:c.desc,main:(c.main&&!c.main.startsWith('data:'))?c.main:'',thumb:(c.thumb&&!c.thumb.startsWith('data:'))?c.thumb:''};})};
+    localStorage.setItem(SAVE_KEY,JSON.stringify(slim));
+  }catch(e){}
+  state.artworks.forEach(function(a){if(a.img)idbPut('art|'+a.key,a.img);});
+  state.photos.forEach(function(p){if(p.img)idbPut('ph|'+p.key,p.img);});
+  state.certs.forEach(function(c){if(c.main)idbPut('cert|'+c.key,c.main);});
+  scheduleGhSync();
+}
+var st2; 
+function scheduleSave(){clearTimeout(st2);st2=setTimeout(save,800);}
+
+function _ghReq(p,m,path,body){var o={method:m,cache:'no-store',headers:{'Authorization':'token '+p,'Accept':'application/vnd.github.v3+json'}};if(body){o.headers['Content-Type']='application/json';o.body=JSON.stringify(body);}return fetch('https://api.github.com'+path,o).then(function(r){return r.json();}).catch(function(){return null;});}
+function ghUploadImg(p,key,dataUrl){
+  var ext=dataUrl.indexOf('image/png')>-1?'png':'jpg';
+  var path='/repos/kc09393/portfolio/contents/imgs/'+key+'.'+ext;
+  var b64=dataUrl.split(',')[1];
+  return _ghReq(p,'GET',path,null).then(function(ex){
+    var body={message:'upload '+key,content:b64,branch:'main'};
+    if(ex&&ex.sha)body.sha=ex.sha;
+    return _ghReq(p,'PUT',path,body);
+  }).then(function(res){
+    if(res&&res.content){
+      return 'https://kc09393.github.io/portfolio/imgs/'+key+'.'+ext;
+    }
+    return null;
+  });
+}
+
+function scheduleGhSync(){clearTimeout(_ghSyncTm);_ghSyncTm=setTimeout(ghSyncState,3000);}
+
+async function ghSyncState(){
+  var p=localStorage.getItem('kc_pf_pat');
+  if(!p)return;
+  var uploads=[];
+  state.artworks.forEach(function(a){
+    if(a.img&&a.img.startsWith('data:')){
+      uploads.push(ghUploadImg(p,'art-'+a.key,a.img).then(function(url){
+        if(url){a.img=url;idbPut('art|'+a.key,{img:url});}
+      }));
+    }
+  });
+  state.photos.forEach(function(ph){
+    if(ph.img&&ph.img.startsWith('data:')){
+      uploads.push(ghUploadImg(p,'ph-'+ph.key,ph.img).then(function(url){
+        if(url){ph.img=url;idbPut('ph|'+ph.key,{img:url});}
+      }));
+    }
+  });
+  state.certs.forEach(function(c){
+    if(c.main&&c.main.startsWith('data:')){
+      uploads.push(ghUploadImg(p,'cert-'+c.key,c.main).then(function(url){
+        if(url){c.main=url;idbPut('cert|'+c.key,{img:url});}
+      }));
+    }
+  });
+  if(uploads.length>0)await Promise.all(uploads);
+  var clean={
+    _v:Date.now(),
+    bio:state.bio||'',
+    artworks:state.artworks.map(function(a){return{key:a.key,title:a.title||'',lbl:a.lbl||'',sub:a.sub||'',desc:a.desc||'',img:(a.img&&!a.img.startsWith('data:'))?a.img:''};}).filter(Boolean),
+    photos:state.photos.map(function(ph){return{key:ph.key,title:ph.title||'',sub:ph.sub||'',desc:ph.desc||'',img:(ph.img&&!ph.img.startsWith('data:'))?ph.img:''};}).filter(Boolean),
+    certs:state.certs.map(function(c){return{key:c.key,title:c.title||'',sub:c.sub||'',cat:c.cat||'professional',desc:c.desc||'',main:(c.main&&!c.main.startsWith('data:'))?c.main:'',thumb:(c.thumb&&!c.thumb.startsWith('data:'))?c.thumb:''};}).filter(Boolean)
+  };
+  var __cleanSig=JSON.stringify({bio:clean.bio,artworks:clean.artworks,photos:clean.photos,certs:clean.certs});
+  if(__cleanSig===localStorage.getItem('kc_pf_last_sig'))return;
+  var b64=btoa(unescape(encodeURIComponent(JSON.stringify(clean,null,2))));
+  var ex=await _ghReq(p,'GET','/repos/kc09393/portfolio/contents/imgs/state.json',null);
+  var body={message:'sync state '+clean._v,content:b64,branch:'main'};
+  if(ex&&ex.sha)body.sha=ex.sha;
+  await _ghReq(p,'PUT','/repos/kc09393/portfolio/contents/imgs/state.json',body);
+  localStorage.setItem('kc_pf_last_sig',__cleanSig);
+}
+async 
+async function ghLoadStateJson(){
+  var p=localStorage.getItem('kc_pf_pat');
+  if(!p)return;
+  var d=await _ghReq(p,'GET','/repos/kc09393/portfolio/contents/imgs/state.json',null);
+  if(!d||!d.content)return;
+  var remote;
+  try{var _bin=atob(d.content.replace(/\n/g,''));var _bytes=new Uint8Array(_bin.length);for(var _bi=0;_bi<_bin.length;_bi++)_bytes[_bi]=_bin.charCodeAt(_bi);remote=JSON.parse(new TextDecoder('utf-8').decode(_bytes));}catch(e){return;}
+  if(!remote||!remote._v)return;
+  var localV=state._v||0;
+  if(remote._v<=localV)return;
+  var changed=false;
+  if(remote.artworks){remote.artworks.forEach(function(ra){var la=state.artworks.find(function(a){return a.key===ra.key;});if(la){if(ra.img&&ra.img!==la.img){la.img=ra.img;changed=true;}if(ra.title!==undefined&&ra.title!==la.title){la.title=ra.title;changed=true;}if(ra.sub!==undefined&&ra.sub!==la.sub){la.sub=ra.sub;changed=true;}if(ra.desc!==undefined&&ra.desc!==la.desc){la.desc=ra.desc;changed=true;}if(ra.lbl!==undefined&&ra.lbl!==la.lbl){la.lbl=ra.lbl;changed=true;}}else{state.artworks.push(ra);changed=true;}});}
+  if(remote.photos){remote.photos.forEach(function(rp){var lp=state.photos.find(function(p2){return p2.key===rp.key;});if(lp){if(rp.img&&rp.img!==lp.img){lp.img=rp.img;changed=true;}if(rp.title!==undefined&&rp.title!==lp.title){lp.title=rp.title;changed=true;}if(rp.sub!==undefined&&rp.sub!==lp.sub){lp.sub=rp.sub;changed=true;}if(rp.desc!==undefined&&rp.desc!==lp.desc){lp.desc=rp.desc;changed=true;}}else{state.photos.push(rp);changed=true;}});}
+  if(remote.certs){remote.certs.forEach(function(rc,ri){var lc=state.certs[ri]||state.certs.find(function(c){return c.key&&c.key===rc.key;});if(lc){if(rc.main&&rc.main!==lc.main&&rc.main.indexOf('undefined')<0){lc.main=rc.main;changed=true;}if(rc.thumb&&rc.thumb!==lc.thumb){lc.thumb=rc.thumb;changed=true;}if(rc.title&&rc.title!==lc.title){lc.title=rc.title;changed=true;}if(rc.sub!==undefined&&rc.sub!==lc.sub){lc.sub=rc.sub;changed=true;}if(rc.cat&&rc.cat!==lc.cat){lc.cat=rc.cat;changed=true;}if(rc.desc!==undefined&&rc.desc!==lc.desc){lc.desc=rc.desc;changed=true;}if(rc.key&&rc.key!==lc.key){lc.key=rc.key;changed=true;}}else{state.certs.push(rc);changed=true;}});}
+  if(remote.bio&&remote.bio!==state.bio){state.bio=remote.bio;changed=true;}
+  if(changed){state._v=remote._v;save();renderArtGrid();renderPhotoGrid();renderCertGrid();}
+}
+
+
+
+function flashSaved(m,el){
+  var t=el||document.querySelector('#ap-b .saved-msg');
+  if(!t)return;
+  t.textContent=m||'✓ 已儲存';t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2200);
+}
+
+// ── Cert helpers ───────────────────────────────────────
+var CAT_ZH={international:'國際認證',government:'政府技術士',professional:'專業認證',tech:'數位技能',fashion:'時尚產業',award:'競賽獎項'};
+
+CAT_ZH={international:'國際認證',government:'政府技術士',professional:'專業認證',tech:'數位技能',fashion:'時尚產業',award:'競賽獎項'};
+function certLabel(c){return CAT_ZH[c]||c;}
+
+function renderArtGrid(){}
+function renderPhotoGrid(){}
+function renderCertGrid(){}
+
+var state={_v:0,bio:'',artworks:[],photos:[],certs:[]};
+
+
+
+// ══════════════════════════════════════════════════════
+// ADMIN HTML BUILD
+// ══════════════════════════════════════════════════════
+
+function buildAdminHTML(){
+  var COPTS=['international','government','professional','fashion','tech','award'];
+  var coptHtml=COPTS.map(function(v){return'<option value="'+v+'">'+certLabel(v)+'</option>';}).join('');
+  return(
+    // Header
+    '<div class="ap-h"><span class="ap-logo">◈ Portfolio Admin</span><div style="display:flex;gap:8px;align-items:center"><button class="ap-export-btn" id="adm-export-btn">⬇ 匯出 HTML</button><button class="ap-export-btn ap-deploy-btn" id="adm-deploy-btn">🚀 部署</button><button class="ap-hx" id="adm-close">✕</button></div></div>'
+    +'<div class="ap-pat-bar" id="adm-pat-bar"><span class="ap-pat-label">GitHub PAT</span><input class="ap-pat-input" id="adm-pat-input" type="password" placeholder="github_pat_…" autocomplete="off"><button class="ap-pat-save" id="adm-pat-save">儲存</button><span class="ap-pat-ok" id="adm-pat-ok"></span></div>'
+    // Tabs
+    +'<div class="ap-tabs">'
+    +'<button class="ap-tab on" data-sec="sec-art">◈ Studio</button>'
+    +'<button class="ap-tab" data-sec="sec-ph">◎ Lens</button>'
+    +'<button class="ap-tab" data-sec="sec-cert">✦ Certs</button>'
+    +'<button class="ap-tab" data-sec="sec-about">✐ About</button>'
+    +'</div>'
+    +'<div class="ap-b" id="ap-b">'
+    +'<div class="saved-msg" id="global-saved"></div>'
+
+    // ── STUDIO TAB ───────────────────────────────────
+    +'<div class="ap-sec on" id="sec-art">'
+    +'<div class="ap-sec-hdr"><span>現有畫作</span><span class="ap-count" id="art-count"></span></div>'
+    +'<div class="adm-item-list" id="adm-art-list"></div>'
+    +'<div class="ap-add-form" id="art-add-form">'
+    +'<div class="ap-add-hdr">＋ 新增畫作</div>'
+    +'<div class="ap-thumb-slot" id="art-new-slot"><div class="slot-ph">+</div><div class="slot-lbl">點擊上傳圖片</div><input type="file" id="art-new-img" accept="image/*"/></div>'
+    +'<div class="f"><label>標題</label><input id="art-new-title" placeholder="例：林境幽影"/></div>'
+    +'<div class="f"><label>媒材</label><input id="art-new-lbl" placeholder="例：Oil on Canvas / Acrylic & Digital"/></div>'
+    +'<div class="f"><label>副標（技法 · 年份）</label><input id="art-new-sub" placeholder="例：Oil Painting · 2022"/></div>'
+    +'<div class="f"><label>說明</label><textarea id="art-new-desc" rows="2" placeholder="作品描述（選填）"></textarea></div>'
+    +'<button class="btn-add" id="btn-add-art">加入畫作</button>'
+    +'</div></div>'
+
+    // ── LENS TAB ─────────────────────────────────────
+    +'<div class="ap-sec" id="sec-ph">'
+    +'<div class="ap-sec-hdr"><span>現有攝影</span><span class="ap-count" id="ph-count"></span></div>'
+    +'<div class="adm-item-list" id="adm-ph-list"></div>'
+    +'<div class="ap-add-form" id="ph-add-form">'
+    +'<div class="ap-add-hdr">＋ 新增攝影</div>'
+    +'<div class="ap-thumb-slot" id="ph-new-slot"><div class="slot-ph">+</div><div class="slot-lbl">點擊上傳圖片</div><input type="file" id="ph-new-img" accept="image/*"/></div>'
+    +'<div class="f"><label>標題</label><input id="ph-new-title" placeholder="例：黃昏出航"/></div>'
+    +'<div class="f"><label>副標（風格 · 地點）</label><input id="ph-new-sub" placeholder="例：Landscape · Okinawa"/></div>'
+    +'<div class="f"><label>說明</label><textarea id="ph-new-desc" rows="2" placeholder="作品描述（選填）"></textarea></div>'
+    +'<button class="btn-add" id="btn-add-ph">加入攝影</button>'
+    +'</div></div>'
+
+    // ── CERTS TAB ────────────────────────────────────
+    +'<div class="ap-sec" id="sec-cert">'
+    +'<div class="ap-sec-hdr"><span>現有證照</span><span class="ap-count" id="cert-count"></span></div>'
+    +'<div class="adm-item-list" id="adm-cert-list"></div>'
+    +'<div class="ap-add-form">'
+    +'<div class="ap-add-hdr">＋ 新增證照</div>'
+    +'<div class="ap-thumb-slot" id="new-cert-slot"><div class="slot-ph">+</div><div class="slot-lbl">點擊上傳圖片</div><input type="file" id="nc-main-input" accept="image/*"/></div>'
+    +'<div class="f"><label>標題</label><input id="nc-title" placeholder="例：Adobe Certified Professional"/></div>'
+    +'<div class="f"><label>副標</label><input id="nc-sub" placeholder="例：Graphic Design · Illustrator"/></div>'
+    +'<div class="f"><label>分類</label><select id="nc-cat">'+coptHtml+'</select></div>'
+    +'<div class="f"><label>說明</label><textarea id="nc-desc" rows="2"></textarea></div>'
+    +'<button class="btn-add" id="btn-add-cert">加入證照</button>'
+    +'<div class="saved-msg" id="cert-saved"></div>'
+    +'</div></div>'
+
+    // ── ABOUT TAB ────────────────────────────────────
+    +'<div class="ap-sec" id="sec-about">'
+    +'<div class="ap-sec-hdr"><span>個人簡介</span></div>'
+    +'<div class="f"><label>Bio 文字</label><textarea id="about-bio-edit" rows="6" placeholder="輸入個人簡介..."></textarea></div>'
+    +'<button class="btn-add" id="btn-save-about">儲存 Bio</button>'
+    +'</div>'
+
+    +'</div>' // ap-b
+  );
+}
+
+// ══════════════════════════════════════════════════════
+// RENDER ADMIN LISTS
+// ══════════════════════════════════════════════════════
+
+function makeThumbSlotBind(slotEl,inputEl,onLoad){
+  slotEl.addEventListener('click',function(e){if(e.target!==inputEl)inputEl.click();});
+  inputEl.addEventListener('change',function(e){
+    var file=e.target.files[0];if(!file)return;
+    var r=new FileReader();
+    r.onload=function(ev){
+      var old=slotEl.querySelector('img');if(old)old.remove();
+      var img=document.createElement('img');img.src=ev.target.result;
+      img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;border-radius:0';
+      slotEl.insertBefore(img,slotEl.firstChild);
+      slotEl.classList.add('has');
+      var ph=slotEl.querySelector('.slot-ph'),lb2=slotEl.querySelector('.slot-lbl');
+      if(ph)ph.style.display='none';if(lb2)lb2.style.display='none';
+      onLoad(ev.target.result);
+    };
+    r.readAsDataURL(file);inputEl.value='';
+  });
+}
+
+function renderAdminArtList(){
+  var list=document.getElementById('adm-art-list'),cnt=document.getElementById('art-count');
+  if(!list)return;if(cnt)cnt.textContent='('+state.artworks.length+')';
+  list.innerHTML=state.artworks.map(function(a,i){
+    return'<div class="adm-item" draggable="true" id="adm-art-'+i+'">'+'<div class="drag-handle" title="拖曳排序">⠿⠿</div>'
+      +'<div class="adm-item-thumb">'+(a.img?'<img src="'+a.img+'" alt=""/>':'<div class="adm-no-img">無圖片</div>')+'</div>'
+      +'<div class="adm-item-info"><div class="adm-item-t">'+escH(a.title)+'</div><div class="adm-item-s">'+escH(a.lbl)+' · '+escH(a.sub)+'</div></div>'
+      +'<div class="adm-item-acts">'
+      +'<button class="adm-edit-btn" data-type="art" data-i="'+i+'">編輯</button>'
+      +'<button class="adm-rm-btn" data-type="art" data-i="'+i+'">刪除</button>'
+      +'</div>'
+      +'<div class="adm-edit-panel" id="aep-art-'+i+'">'
+      +'<div class="aep-thumb-wrap"><div class="aep-thumb" id="aep-art-th-'+i+'" style="position:relative;overflow:hidden;cursor:pointer">'
+      +(a.img?'<img src="'+a.img+'" style="width:100%;height:100%;object-fit:contain"/>':'<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.3);font-size:11px">點擊更換圖片</div>')
+      +'<input type="file" accept="image/*" style="display:none" id="aep-art-fi-'+i+'"/>'
+      +'</div></div>'
+      +'<div class="f"><label>標題</label><input class="aep-title" value="'+escH(a.title)+'"/></div>'
+      +'<div class="f"><label>媒材</label><input class="aep-lbl" value="'+escH(a.lbl)+'"/></div>'
+      +'<div class="f"><label>副標</label><input class="aep-sub" value="'+escH(a.sub)+'"/></div>'
+      +'<div class="f"><label>說明</label><textarea class="aep-desc">'+escH(a.desc)+'</textarea></div>'
+      +'<div class="aep-row">'
+      +'<button class="aep-save" data-type="art" data-i="'+i+'">✓ 儲存</button>'
+      +(i>0?'<button class="aep-up" data-type="art" data-i="'+i+'">↑ 上移</button>':'')
+      +(i<state.artworks.length-1?'<button class="aep-dn" data-type="art" data-i="'+i+'">↓ 下移</button>':'')
+      +'</div>'
+      +'</div></div>';
+  }).join('');
+  bindAdminItemList('art',state.artworks,renderAdminArtList,renderArtGrid,'aep-art-fi-','aep-art-th-');
+  bindDragSort('adm-art-list',state.artworks,renderAdminArtList,renderArtGrid);
+}
+
+function renderAdminPhList(){
+  var list=document.getElementById('adm-ph-list'),cnt=document.getElementById('ph-count');
+  if(!list)return;if(cnt)cnt.textContent='('+state.photos.length+')';
+  list.innerHTML=state.photos.map(function(p,i){
+    return'<div class="adm-item" draggable="true" id="adm-ph-'+i+'">'+'<div class="drag-handle" title="拖曳排序">⠿⠿</div>'
+      +'<div class="adm-item-thumb">'+(p.img?'<img src="'+p.img+'" alt=""/>':'<div class="adm-no-img">無圖片</div>')+'</div>'
+      +'<div class="adm-item-info"><div class="adm-item-t">'+escH(p.title)+'</div><div class="adm-item-s">'+escH(p.sub)+'</div></div>'
+      +'<div class="adm-item-acts">'
+      +'<button class="adm-edit-btn" data-type="ph" data-i="'+i+'">編輯</button>'
+      +'<button class="adm-rm-btn" data-type="ph" data-i="'+i+'">刪除</button>'
+      +'</div>'
+      +'<div class="adm-edit-panel" id="aep-ph-'+i+'">'
+      +'<div class="aep-thumb-wrap"><div class="aep-thumb" id="aep-ph-th-'+i+'" style="position:relative;overflow:hidden;cursor:pointer">'
+      +(p.img?'<img src="'+p.img+'" style="width:100%;height:100%;object-fit:contain"/>':'<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.3);font-size:11px">點擊更換圖片</div>')
+      +'<input type="file" accept="image/*" style="display:none" id="aep-ph-fi-'+i+'"/>'
+      +'</div></div>'
+      +'<div class="f"><label>標題</label><input class="aep-title" value="'+escH(p.title)+'"/></div>'
+      +'<div class="f"><label>副標</label><input class="aep-sub" value="'+escH(p.sub)+'"/></div>'
+      +'<div class="f"><label>說明</label><textarea class="aep-desc">'+escH(p.desc||'')+'</textarea></div>'
+      +'<div class="aep-row">'
+      +'<button class="aep-save" data-type="ph" data-i="'+i+'">✓ 儲存</button>'
+      +(i>0?'<button class="aep-up" data-type="ph" data-i="'+i+'">↑ 上移</button>':'')
+      +(i<state.photos.length-1?'<button class="aep-dn" data-type="ph" data-i="'+i+'">↓ 下移</button>':'')
+      +'</div>'
+      +'</div></div>';
+  }).join('');
+  bindAdminItemList('ph',state.photos,renderAdminPhList,renderPhotoGrid,'aep-ph-fi-','aep-ph-th-');
+  bindDragSort('adm-ph-list',state.photos,renderAdminPhList,renderPhotoGrid);
+}
+
+function bindAdminItemList(type,arr,renderList,renderGrid,fiPrefix,thPrefix){
+  var list=document.getElementById('adm-'+(type==='art'?'art':'ph')+'-list');
+  if(!list)return;
+  // Toggle edit panels
+  list.querySelectorAll('.adm-edit-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i);
+      var panel=document.getElementById('aep-'+type+'-'+i);
+      list.querySelectorAll('.adm-edit-panel').forEach(function(p){if(p.id!=='aep-'+type+'-'+i)p.classList.remove('open');});
+      if(panel)panel.classList.toggle('open');
+    });
+  });
+  // Delete
+  list.querySelectorAll('.adm-rm-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(!confirm('確定刪除？'))return;
+      arr.splice(parseInt(btn.dataset.i),1);
+      renderGrid();renderList();scheduleSave();
+      flashSaved('✓ 已刪除',document.getElementById('global-saved'));
+    });
+  });
+  // Save edits
+  list.querySelectorAll('.aep-save').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i),panel=document.getElementById('aep-'+type+'-'+i);if(!panel)return;
+      if(type==='art'){
+        state.artworks[i].title=panel.querySelector('.aep-title').value;
+        state.artworks[i].lbl=panel.querySelector('.aep-lbl').value;
+        state.artworks[i].sub=panel.querySelector('.aep-sub').value;
+        state.artworks[i].desc=panel.querySelector('.aep-desc').value;
+      } else {
+        state.photos[i].title=panel.querySelector('.aep-title').value;
+        state.photos[i].sub=panel.querySelector('.aep-sub').value;
+        state.photos[i].desc=panel.querySelector('.aep-desc').value;
+      }
+      renderGrid();renderList();scheduleSave();
+      flashSaved('✓ 已儲存',document.getElementById('global-saved'));
+    });
+  });
+  // Move up/down
+  list.querySelectorAll('.aep-up').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i);if(i===0)return;
+      var tmp=arr[i];arr[i]=arr[i-1];arr[i-1]=tmp;
+      renderGrid();renderList();scheduleSave();
+    });
+  });
+  list.querySelectorAll('.aep-dn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i);if(i>=arr.length-1)return;
+      var tmp=arr[i];arr[i]=arr[i+1];arr[i+1]=tmp;
+      renderGrid();renderList();scheduleSave();
+    });
+  });
+  // Image upload in edit panel
+  list.querySelectorAll('[id^="'+fiPrefix+'"]').forEach(function(fi){
+    var i=parseInt(fi.id.replace(fiPrefix,''));
+    var th=document.getElementById(thPrefix+i);
+    if(!th)return;
+    th.addEventListener('click',function(e){if(e.target!==fi)fi.click();});
+    fi.addEventListener('change',function(e){
+      var file=e.target.files[0];if(!file)return;
+      var r=new FileReader();
+      r.onload=function(ev){
+        if(type==='art')state.artworks[i].img=ev.target.result;
+        else state.photos[i].img=ev.target.result;
+        var oldImg=th.querySelector('img');if(oldImg)oldImg.src=ev.target.result;
+        else{var ni=document.createElement('img');ni.style.cssText='width:100%;height:100%;object-fit:contain;position:absolute;inset:0';th.insertBefore(ni,th.firstChild);ni.src=ev.target.result;}
+        renderGrid();scheduleSave();
+      };
+      r.readAsDataURL(file);fi.value='';
+    });
+  });
+}
+
+function bindDragSort(listId,arr,renderListFn,renderGridFn){
+  var list=document.getElementById(listId);if(!list)return;
+  var dragSrc=null,fromHandle=false;
+  // Track whether mousedown originated from a drag handle
+  list.addEventListener('mousedown',function(e){
+    fromHandle=!!e.target.closest('.drag-handle');
+  });
+  list.querySelectorAll('.adm-item').forEach(function(item){
+    item.addEventListener('dragstart',function(e){
+      if(!fromHandle){e.preventDefault();return;}
+      dragSrc=item;
+      e.dataTransfer.effectAllowed='move';
+      e.dataTransfer.setData('text/plain','');
+      setTimeout(function(){item.classList.add('drag-active');},0);
+    });
+    item.addEventListener('dragend',function(){
+      item.classList.remove('drag-active');
+      list.querySelectorAll('.adm-item').forEach(function(x){x.classList.remove('drag-over');});
+      dragSrc=null;fromHandle=false;
+    });
+    item.addEventListener('dragover',function(e){
+      e.preventDefault();e.dataTransfer.dropEffect='move';
+      if(dragSrc&&item!==dragSrc){
+        list.querySelectorAll('.adm-item').forEach(function(x){x.classList.remove('drag-over');});
+        item.classList.add('drag-over');
+      }
+    });
+    item.addEventListener('dragleave',function(){item.classList.remove('drag-over');});
+    item.addEventListener('drop',function(e){
+      e.preventDefault();
+      if(!dragSrc||dragSrc===item)return;
+      var items=Array.from(list.querySelectorAll('.adm-item'));
+      var fi=items.indexOf(dragSrc),ti=items.indexOf(item);
+      if(fi<0||ti<0)return;
+      var moved=arr.splice(fi,1)[0];arr.splice(ti,0,moved);
+      renderListFn();renderGridFn();scheduleSave();
+    });
+  });
+}
+
+
+function renderAdminCertList(){
+  var list=document.getElementById('adm-cert-list'),cnt=document.getElementById('cert-count');
+  if(!list)return;if(cnt)cnt.textContent='('+state.certs.length+')';
+  var COPTS=['international','government','professional','fashion','tech','award'];
+  list.innerHTML=state.certs.map(function(c,i){
+    var opts=COPTS.map(function(v){return'<option value="'+v+'"'+(c.cat===v?' selected':'')+'>'+certLabel(v)+'</option>';}).join('');
+    return'<div class="adm-item" draggable="true">'+'<div class="drag-handle" title="拖曳排序">⠿⠿</div>'
+      +'<div class="adm-item-thumb">'+(c.main?'<img src="'+c.main+'" alt=""/>':'<div class="adm-no-img">無圖片</div>')+'</div>'
+      +'<div class="adm-item-info"><div class="adm-item-t">'+escH(c.title)+'</div><div class="adm-item-s">'+certLabel(c.cat)+'</div></div>'
+      +'<div class="adm-item-acts">'
+      +'<button class="adm-cert-edit-btn" data-i="'+i+'">編輯</button>'
+      +'<button class="adm-cert-rm" data-i="'+i+'">刪除</button>'
+      +'</div>'
+      +'<div class="adm-edit-panel" id="ep-'+i+'">'
+      +'<div class="cert-edit-thumb-slot" id="ep-main-'+i+'"><img src="'+escH(c.main)+'" style="width:100%;height:100%;object-fit:contain;position:absolute;inset:0"/><input type="file" accept="image/*" style="display:none"/><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;background:rgba(0,0,0,.5);font-size:11px;color:var(--wht)">點擊更換</div></div>'
+      +'<div class="f"><label>標題</label><input class="ep-title" value="'+escH(c.title)+'"/></div>'
+      +'<div class="f"><label>副標</label><input class="ep-sub" value="'+escH(c.sub)+'"/></div>'
+      +'<div class="f"><label>分類</label><select class="ep-cat">'+opts+'</select></div>'
+      +'<div class="f"><label>說明</label><textarea class="ep-desc">'+escH(c.desc)+'</textarea></div>'
+      +'<div class="aep-row"><button class="btn-cert-save" data-i="'+i+'">✓ 儲存</button>'+(i>0?'<button class="aep-cert-up" data-i="'+i+'">↑ 上移</button>':'')+  (i<state.certs.length-1?'<button class="aep-cert-dn" data-i="'+i+'">↓ 下移</button>':'')+'</div>'
+      +'</div></div>';
+  }).join('');
+
+  list.querySelectorAll('.adm-cert-rm').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(!confirm('確定刪除此證照？'))return;
+      state.certs.splice(parseInt(btn.dataset.i),1);
+      renderCertGrid();renderAdminCertList();scheduleSave();
+      flashSaved('✓ 已刪除',document.getElementById('global-saved'));
+    });
+  });
+  list.querySelectorAll('.adm-cert-edit-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      list.querySelectorAll('.adm-edit-panel').forEach(function(p){if(p.id!=='ep-'+btn.dataset.i)p.classList.remove('open');});
+      var p=document.getElementById('ep-'+btn.dataset.i);if(p)p.classList.toggle('open');
+    });
+  });
+  list.querySelectorAll('.cert-edit-thumb-slot').forEach(function(slot){
+    var inp=slot.querySelector('input'),ov=slot.querySelector('div');
+    slot.addEventListener('mouseenter',function(){if(ov)ov.style.opacity='1';});
+    slot.addEventListener('mouseleave',function(){if(ov)ov.style.opacity='0';});
+    slot.addEventListener('click',function(e){if(e.target!==inp)inp.click();});
+    inp.addEventListener('change',function(e){
+      var file=e.target.files[0];if(!file)return;
+      var r=new FileReader();
+      r.onload=function(ev){
+        slot.dataset.b64=ev.target.result;
+        var img=slot.querySelector('img');if(img)img.src=ev.target.result;
+      };
+      r.readAsDataURL(file);inp.value='';
+    });
+  });
+  list.querySelectorAll('.aep-cert-up').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i);if(i===0)return;
+      var tmp=state.certs[i];state.certs[i]=state.certs[i-1];state.certs[i-1]=tmp;
+      renderCertGrid();renderAdminCertList();scheduleSave();
+    });
+  });
+  list.querySelectorAll('.aep-cert-dn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i);if(i>=state.certs.length-1)return;
+      var tmp=state.certs[i];state.certs[i]=state.certs[i+1];state.certs[i+1]=tmp;
+      renderCertGrid();renderAdminCertList();scheduleSave();
+    });
+  });
+  list.querySelectorAll('.btn-cert-save').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var i=parseInt(btn.dataset.i),panel=document.getElementById('ep-'+i);if(!panel)return;
+      var ms=document.getElementById('ep-main-'+i);
+      if(ms&&ms.dataset.b64)state.certs[i].main=ms.dataset.b64;
+      state.certs[i].title=panel.querySelector('.ep-title').value;
+      state.certs[i].sub=panel.querySelector('.ep-sub').value;
+      state.certs[i].cat=panel.querySelector('.ep-cat').value;
+      state.certs[i].desc=panel.querySelector('.ep-desc').value;
+      renderCertGrid();renderAdminCertList();scheduleSave();
+      flashSaved('✓ 已儲存',document.getElementById('global-saved'));
+    });
+  });
+  bindDragSort('adm-cert-list',state.certs,renderAdminCertList,renderCertGrid);
+}
+
+// ══════════════════════════════════════════════════════
+// BIND ADMIN PANEL
+// ══════════════════════════════════════════════════════
+function bindAdmin(){
+  // Close
+  var cx=document.getElementById('adm-close');
+  if(cx)cx.addEventListener('click',function(){document.getElementById('adm-ov').style.display='none';});
+  var admOv=document.getElementById('adm-ov');
+  if(admOv)admOv.addEventListener('click',function(e){if(e.target===admOv)admOv.style.display='none';});
+
+  // Tabs
+  document.querySelectorAll('.ap-tab').forEach(function(tab){
+    tab.addEventListener('click',function(){
+      document.querySelectorAll('.ap-tab').forEach(function(t){t.classList.remove('on');});
+      document.querySelectorAll('.ap-sec').forEach(function(s){s.classList.remove('on');});
+      tab.classList.add('on');
+      var s=document.getElementById(tab.dataset.sec);if(s)s.classList.add('on');
+    });
+  });
+
+  // ── New Art ────────────────────────────────────────
+  var artNewImg=null;
+  var artSlot=document.getElementById('art-new-slot'),artFi=document.getElementById('art-new-img');
+  if(artSlot&&artFi)makeThumbSlotBind(artSlot,artFi,function(b64){artNewImg=b64;});
+  var btnAddArt=document.getElementById('btn-add-art');
+  if(btnAddArt)btnAddArt.addEventListener('click',function(){
+    if(!artNewImg){flashSaved('⚠ 請先上傳圖片',document.getElementById('global-saved'));return;}
+    var title=(document.getElementById('art-new-title')||{}).value||'Untitled';
+    var lbl=(document.getElementById('art-new-lbl')||{}).value||'Mixed Media';
+    var sub=(document.getElementById('art-new-sub')||{}).value||'';
+    var desc=(document.getElementById('art-new-desc')||{}).value||'';
+    state.artworks.push({key:'a'+Date.now(),img:artNewImg,title:title,lbl:lbl,sub:sub,desc:desc});
+    renderArtGrid();renderAdminArtList();save();
+    artNewImg=null;
+    // Reset form
+    if(artSlot){var oldI=artSlot.querySelector('img');if(oldI)oldI.remove();artSlot.classList.remove('has');var ph=artSlot.querySelector('.slot-ph'),lb2=artSlot.querySelector('.slot-lbl');if(ph)ph.style.display='';if(lb2)lb2.style.display='';}
+    ['art-new-title','art-new-lbl','art-new-sub','art-new-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    flashSaved('✓ 畫作已新增',document.getElementById('global-saved'));
+    document.querySelector('#adm-art-list')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  // ── New Photo ──────────────────────────────────────
+  var phNewImg=null;
+  var phSlot=document.getElementById('ph-new-slot'),phFi=document.getElementById('ph-new-img');
+  if(phSlot&&phFi)makeThumbSlotBind(phSlot,phFi,function(b64){phNewImg=b64;});
+  var btnAddPh=document.getElementById('btn-add-ph');
+  if(btnAddPh)btnAddPh.addEventListener('click',function(){
+    if(!phNewImg){flashSaved('⚠ 請先上傳圖片',document.getElementById('global-saved'));return;}
+    var title=(document.getElementById('ph-new-title')||{}).value||'Untitled';
+    var sub=(document.getElementById('ph-new-sub')||{}).value||'';
+    var desc=(document.getElementById('ph-new-desc')||{}).value||'';
+    state.photos.push({key:'p'+Date.now(),img:phNewImg,title:title,sub:sub,desc:desc});
+    renderPhotoGrid();renderAdminPhList();save();
+    phNewImg=null;
+    if(phSlot){var oldI=phSlot.querySelector('img');if(oldI)oldI.remove();phSlot.classList.remove('has');var ph2=phSlot.querySelector('.slot-ph'),lb3=phSlot.querySelector('.slot-lbl');if(ph2)ph2.style.display='';if(lb3)lb3.style.display='';}
+    ['ph-new-title','ph-new-sub','ph-new-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    flashSaved('✓ 攝影已新增',document.getElementById('global-saved'));
+    document.querySelector('#adm-ph-list')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  // ── New Cert ───────────────────────────────────────
+  var newCertMain=null;
+  var ncSlot=document.getElementById('new-cert-slot'),ncFi=document.getElementById('nc-main-input');
+  if(ncSlot&&ncFi)makeThumbSlotBind(ncSlot,ncFi,function(b64){newCertMain=b64;});
+  var btnAddCert=document.getElementById('btn-add-cert');
+  if(btnAddCert)btnAddCert.addEventListener('click',function(){
+    if(!newCertMain){flashSaved('⚠ 請先上傳圖片',document.getElementById('global-saved'));return;}
+    state.certs.push({
+      key:'c'+Date.now(),main:newCertMain,
+      title:(document.getElementById('nc-title')||{}).value||'',
+      sub:(document.getElementById('nc-sub')||{}).value||'',
+      cat:(document.getElementById('nc-cat')||{}).value||'professional',
+      desc:(document.getElementById('nc-desc')||{}).value||''
+    });
+    renderCertGrid();renderAdminCertList();save();newCertMain=null;
+    if(ncSlot){var oldI=ncSlot.querySelector('img');if(oldI)oldI.remove();ncSlot.classList.remove('has');var ph3=ncSlot.querySelector('.slot-ph'),lb4=ncSlot.querySelector('.slot-lbl');if(ph3)ph3.style.display='';if(lb4)lb4.style.display='';}
+    ['nc-title','nc-sub','nc-desc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    flashSaved('✓ 證照已新增',document.getElementById('global-saved'));
+  });
+
+  // ── About Bio ──────────────────────────────────────
+  var bioEdit=document.getElementById('about-bio-edit');
+  if(bioEdit){
+    bioEdit.value=state.bio||document.getElementById('about-bio').textContent||'';
+    var btnBio=document.getElementById('btn-save-about');
+    if(btnBio)btnBio.addEventListener('click',function(){
+      state.bio=bioEdit.value;
+      var el=document.getElementById('about-bio');if(el)el.textContent=state.bio;
+      scheduleSave();flashSaved('✓ Bio 已儲存',document.getElementById('global-saved'));
+    });
+  }
+
+
+  // ── Export & Deploy ──────────────────────────────────
+  var PAT_KEY='kc_pf_pat';
+  var REPO='kc09393/portfolio',FILE='index.html',BRANCH='main';
+
+  function toB64uAsync(str){
+    return new Promise(function(resolve,reject){
+      try{
+        var blob=new Blob([str],{type:'text/plain'});
+        var reader=new FileReader();
+        reader.onload=function(e){resolve(e.target.result.split(',')[1]);};
+        reader.onerror=function(){reject(new Error('base64 轉換失敗'));};
+        reader.readAsDataURL(blob);
+      }catch(e){reject(e);}
+    });
+  }
+  function ghReq(pat,method,path,body){
+    var opts={method:method,headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}};
+    if(body){opts.headers['Content-Type']='application/json';opts.body=JSON.stringify(body);}
+    return fetch('https://api.github.com'+path,opts).then(function(r){return r.json();});
+  }
+  function buildDeployHtml(html){
+    var sm='var state={',pm='// ── Persistence';
+    var si=html.indexOf(sm),pi=html.indexOf(pm,si),ei=html.lastIndexOf('};',pi)+2;
+    if(si<0||pi<0||ei<2)return null;
+    return html.slice(0,si)+'var state='+JSON.stringify(state)+';'+html.slice(ei);
+  }
+
+  // PAT init
+  var patInput=document.getElementById('adm-pat-input');
+  var patOk=document.getElementById('adm-pat-ok');
+  var savedPat=localStorage.getItem(PAT_KEY);
+  if(savedPat&&patInput)patInput.value=savedPat;
+  if(savedPat&&patOk){patOk.textContent='✓ 已設定';patOk.style.color='#7dd5a0';}
+
+  var patSaveBtn=document.getElementById('adm-pat-save');
+  if(patSaveBtn)patSaveBtn.addEventListener('click',function(){
+    var val=patInput?patInput.value.trim():'';
+    if(!val){if(patOk){patOk.textContent='請輸入 PAT';patOk.style.color='#e88';}return;}
+    localStorage.setItem(PAT_KEY,val);
+    if(patOk){patOk.textContent='✓ 已儲存';patOk.style.color='#7dd5a0';}
+  });
+
+  var exportBtn=document.getElementById('adm-export-btn');
+  if(exportBtn)exportBtn.addEventListener('click',function(){
+    var btn=this;btn.textContent='⏳ 匯出中...';btn.disabled=true;
+    fetch(location.href).then(function(r){return r.text();}).then(function(html){
+      var newHtml=buildDeployHtml(html);
+      if(!newHtml){alert('無法定位 state 區塊');btn.textContent='✗ 錯誤';btn.disabled=false;return;}
+      var blob=new Blob([newHtml],{type:'text/html'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(a.href);
+      btn.textContent='✓ 已下載！';
+      setTimeout(function(){btn.textContent='⬇ 匯出 HTML';btn.disabled=false;},2500);
+    }).catch(function(){btn.textContent='✗ 錯誤';btn.disabled=false;});
+  });
+
+  var deployBtn=document.getElementById('adm-deploy-btn');
+  if(deployBtn)deployBtn.addEventListener('click',function(){
+    var btn=this;
+    var pat=localStorage.getItem(PAT_KEY);
+    if(!pat){
+      if(patInput){patInput.focus();patInput.style.borderColor='rgba(232,136,136,.8)';}
+      if(patOk){patOk.textContent='← 請先儲存 PAT';patOk.style.color='#e88';}
+      return;
+    }
+    btn.textContent='⏳ 讀取…';btn.disabled=true;
+    var ctx={};
+    fetch(location.href).then(function(r){return r.text();})
+      .then(function(html){
+        ctx.newHtml=buildDeployHtml(html);
+        if(!ctx.newHtml)throw new Error('無法定位 state 區塊');
+        btn.textContent='⏳ 上傳 blob…';
+        return toB64uAsync(ctx.newHtml).then(function(b64){return ghReq(pat,'POST','/repos/'+REPO+'/git/blobs',{content:b64,encoding:'base64'});});
+      })
+      .then(function(blob){
+        if(!blob.sha)throw new Error(blob.message||'blob 失敗');
+        ctx.blobSha=blob.sha;
+        btn.textContent='⏳ 取得 ref…';
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH);
+      })
+      .then(function(ref){
+        if(!ref.object)throw new Error(ref.message||'ref 失敗');
+        ctx.commitSha=ref.object.sha;
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/commits/'+ctx.commitSha);
+      })
+      .then(function(commit){
+        if(!commit.tree)throw new Error(commit.message||'commit 失敗');
+        btn.textContent='⏳ 建立 tree…';
+        return ghReq(pat,'POST','/repos/'+REPO+'/git/trees',{
+          base_tree:commit.tree.sha,
+          tree:[{path:FILE,mode:'100644',type:'blob',sha:ctx.blobSha}]
+        });
+      })
+      .then(function(tree){
+        if(!tree.sha)throw new Error(tree.message||'tree 失敗');
+        btn.textContent='⏳ 提交…';
+        return ghReq(pat,'POST','/repos/'+REPO+'/git/commits',{
+          message:'Admin: update portfolio '+new Date().toISOString().slice(0,10),
+          tree:tree.sha,parents:[ctx.commitSha]
+        });
+      })
+      .then(function(nc){
+        if(!nc.sha)throw new Error(nc.message||'新 commit 失敗');
+        return ghReq(pat,'PATCH','/repos/'+REPO+'/git/refs/heads/'+BRANCH,{sha:nc.sha});
+      })
+      .then(function(updated){
+        if(updated.object&&updated.object.sha){
+          state._v=0;scheduleSave();
+          btn.textContent='✓ 已部署！約40秒生效';
+          setTimeout(function(){btn.textContent='🚀 部署';btn.disabled=false;},5000);
+        } else throw new Error(updated.message||'ref 更新失敗');
+      })
+      .catch(function(e){alert('部署失敗: '+e.message);btn.textContent='🚀 部署';btn.disabled=false;});
+  });
+
+
+  // Init lists
+  renderAdminArtList();renderAdminPhList();renderAdminCertList();
+}
+
+function initAdmin(){
+  var adm=document.getElementById('adm');
+  if(adm)adm.innerHTML=buildAdminHTML();
+  bindAdmin();
+  ghLoadStateJson().then(function(){
+    var adm2=document.getElementById('adm');
+    if(adm2)adm2.innerHTML=buildAdminHTML();
+    bindAdmin();
+  });
+}
+initAdmin();
+})();
+</script>
+</body>
+</html>
