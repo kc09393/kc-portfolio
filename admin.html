@@ -741,7 +741,21 @@ function bindAdmin(){
   var exportBtn=document.getElementById('adm-export-btn');
   if(exportBtn)exportBtn.addEventListener('click',function(){
     var btn=this;btn.textContent='⏳ 匯出中...';btn.disabled=true;
-    fetch(location.href).then(function(r){return r.text();}).then(function(html){
+    var pat=localStorage.getItem(PAT_KEY);
+    ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH,null).then(function(_r0){
+      return ghReq(pat,'GET','/repos/'+REPO+'/git/commits/'+_r0.object.sha,null);
+    }).then(function(_c0){
+      return ghReq(pat,'GET','/repos/'+REPO+'/git/trees/'+_c0.tree.sha+'?recursive=1',null);
+    }).then(function(_tr0){
+      var _e=_tr0.tree.find(function(x){return x.path===FILE;});
+      if(!_e)throw new Error('找不到 '+FILE);
+      return ghReq(pat,'GET','/repos/'+REPO+'/git/blobs/'+_e.sha,null);
+    }).then(function(_blobData){
+      var _bin=atob(_blobData.content.replace(/\n/g,''));
+      var _bytes=new Uint8Array(_bin.length);
+      for(var _bi=0;_bi<_bin.length;_bi++)_bytes[_bi]=_bin.charCodeAt(_bi);
+      return new TextDecoder('utf-8').decode(_bytes);
+    }).then(function(html){
       var newHtml=buildDeployHtml(html);
       if(!newHtml){alert('無法定位 state 區塊');btn.textContent='✗ 錯誤';btn.disabled=false;return;}
       var blob=new Blob([newHtml],{type:'text/html'});
