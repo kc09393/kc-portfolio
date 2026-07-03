@@ -1,5 +1,5 @@
 {
-  "_v": 1783068838262,
+  "_v": 1783068842651,
   "bio": "",
   "artworks": [
     {
@@ -113,6 +113,14 @@
       "sub": "",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783065668111.jpg"
+    },
+    {
+      "key": "a1783068812511",
+      "title": "Untitled",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-a1783068812511.jpg"
     }
   ],
   "photos": [
@@ -143,34 +151,6 @@
       "sub": "神社 · 沖繩",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/ph-p3.jpg"
-    },
-    {
-      "key": "p1783014244264",
-      "title": "TEST-RED",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/ph-p1783014244264.png"
-    },
-    {
-      "key": "p1783014246256",
-      "title": "TEST-BLUE",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/ph-p1783014246256.png"
-    },
-    {
-      "key": "p1783014267153",
-      "title": "TEST-LIME",
-      "sub": "",
-      "desc": "",
-      "img": ""
-    },
-    {
-      "key": "p1783015700159",
-      "title": "RACE-TEST-SHOULD-BE-BLOCKED",
-      "sub": "",
-      "desc": "",
-      "img": ""
     }
   ],
   "certs": [
