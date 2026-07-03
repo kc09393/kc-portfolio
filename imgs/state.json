@@ -1,5 +1,5 @@
 {
-  "_v": 1783069099260,
+  "_v": 1783069139002,
   "bio": "",
   "artworks": [
     {
@@ -121,6 +121,14 @@
       "sub": "",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783068812511.jpg"
+    },
+    {
+      "key": "a1783069134267",
+      "title": "MY REAL TITLE SHOULD SURVIVE",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-a1783069134267.png"
     }
   ],
   "photos": [
