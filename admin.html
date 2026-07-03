@@ -205,7 +205,7 @@ async function ghSyncState(){
   await _ghReq(p,'PUT','/repos/kc09393/portfolio/contents/imgs/state.json',body);
   localStorage.setItem('kc_pf_last_sig',__cleanSig);
 }
-async 
+
 async function ghLoadStateJson(){
   var p=localStorage.getItem('kc_pf_pat');
   if(!p)return;
