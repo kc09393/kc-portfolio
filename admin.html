@@ -669,7 +669,10 @@ function bindAdmin(){
   var btnAddArt=document.getElementById('btn-add-art');
   if(btnAddArt)btnAddArt.addEventListener('click',function(){
     if(!artNewImg){flashSaved('⚠ 請先上傳圖片',document.getElementById('global-saved'));return;}
-    var title=(document.getElementById('art-new-title')||{}).value||'Untitled';
+    var _artTitleEl=document.getElementById('art-new-title');
+    var title=(_artTitleEl||{}).value||'';
+    title=title.trim();
+    if(!title){flashSaved('⚠ 請先輸入標題',document.getElementById('global-saved'));if(_artTitleEl)_artTitleEl.focus();return;}
     var lbl=(document.getElementById('art-new-lbl')||{}).value||'Mixed Media';
     var sub=(document.getElementById('art-new-sub')||{}).value||'';
     var desc=(document.getElementById('art-new-desc')||{}).value||'';
@@ -690,7 +693,10 @@ function bindAdmin(){
   var btnAddPh=document.getElementById('btn-add-ph');
   if(btnAddPh)btnAddPh.addEventListener('click',function(){
     if(!phNewImg){flashSaved('⚠ 請先上傳圖片',document.getElementById('global-saved'));return;}
-    var title=(document.getElementById('ph-new-title')||{}).value||'Untitled';
+    var _phTitleEl=document.getElementById('ph-new-title');
+    var title=(_phTitleEl||{}).value||'';
+    title=title.trim();
+    if(!title){flashSaved('⚠ 請先輸入標題',document.getElementById('global-saved'));if(_phTitleEl)_phTitleEl.focus();return;}
     var sub=(document.getElementById('ph-new-sub')||{}).value||'';
     var desc=(document.getElementById('ph-new-desc')||{}).value||'';
     state.photos.push({key:'p'+Date.now(),img:phNewImg,title:title,sub:sub,desc:desc});
