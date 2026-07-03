@@ -1,5 +1,5 @@
 {
-  "_v": 1783073586263,
+  "_v": 1783073881717,
   "bio": "",
   "artworks": [
     {
@@ -137,6 +137,14 @@
       "sub": "",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783072846079.jpg"
+    },
+    {
+      "key": "a1783073875933",
+      "title": "RESIZE-TEST",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-a1783073875933.jpg"
     }
   ],
   "photos": [
