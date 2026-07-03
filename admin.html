@@ -859,9 +859,9 @@ function initAdmin(){
   if(adm)adm.innerHTML=buildAdminHTML();
   bindAdmin();
   ghLoadStateJson().then(function(){
-    var adm2=document.getElementById('adm');
-    if(adm2)adm2.innerHTML=buildAdminHTML();
-    bindAdmin();
+    renderAdminArtList();
+    renderAdminPhList();
+    renderAdminCertList();
   });
 }
 initAdmin();
