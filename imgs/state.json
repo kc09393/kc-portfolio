@@ -1,5 +1,5 @@
 {
-  "_v": 1783072810906,
+  "_v": 1783072853578,
   "bio": "",
   "artworks": [
     {
@@ -129,6 +129,14 @@
       "sub": "",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783072804013.jpg"
+    },
+    {
+      "key": "a1783072846079",
+      "title": "Untitled",
+      "lbl": "Mixed Media",
+      "sub": "",
+      "desc": "",
+      "img": "https://kc09393.github.io/portfolio/imgs/art-a1783072846079.jpg"
     }
   ],
   "photos": [
