@@ -777,32 +777,9 @@ function bindAdmin(){
     }
     btn.textContent='⏳ 讀取…';btn.disabled=true;
     var ctx={};
-    ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH,null).then(function(_r0){
-        return ghReq(pat,'GET','/repos/'+REPO+'/git/commits/'+_r0.object.sha,null);
-      }).then(function(_c0){
-        return ghReq(pat,'GET','/repos/'+REPO+'/git/trees/'+_c0.tree.sha+'?recursive=1',null);
-      }).then(function(_tr0){
-        var _e=_tr0.tree.find(function(x){return x.path===FILE;});
-        if(!_e)throw new Error('找不到 '+FILE);
-        return ghReq(pat,'GET','/repos/'+REPO+'/git/blobs/'+_e.sha,null);
-      }).then(function(_blobData){
-        var _bin=atob(_blobData.content.replace(/\n/g,''));
-        var _bytes=new Uint8Array(_bin.length);
-        for(var _bi=0;_bi<_bin.length;_bi++)_bytes[_bi]=_bin.charCodeAt(_bi);
-        return new TextDecoder('utf-8').decode(_bytes);
-      })
-      .then(function(html){
-        ctx.newHtml=buildDeployHtml(html);
-        if(!ctx.newHtml)throw new Error('無法定位 state 區塊');
-        btn.textContent='⏳ 上傳 blob…';
-        return toB64uAsync(ctx.newHtml).then(function(b64){return ghReq(pat,'POST','/repos/'+REPO+'/git/blobs',{content:b64,encoding:'base64'});});
-      })
-      .then(function(blob){
-        if(!blob.sha)throw new Error(blob.message||'blob 失敗');
-        ctx.blobSha=blob.sha;
-        btn.textContent='⏳ 取得 ref…';
-        return ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH);
-      })
+    function commitWithRetry(attemptsLeft){
+      btn.textContent=attemptsLeft<4?('⏳ 重試中…('+(4-attemptsLeft)+'/3)'):'⏳ 取得 ref…';
+      return ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH)
       .then(function(ref){
         if(!ref.object)throw new Error(ref.message||'ref 失敗');
         ctx.commitSha=ref.object.sha;
@@ -829,15 +806,49 @@ function bindAdmin(){
         return ghReq(pat,'PATCH','/repos/'+REPO+'/git/refs/heads/'+BRANCH,{sha:nc.sha});
       })
       .then(function(updated){
-        if(updated.object&&updated.object.sha){
-          state._v=0;scheduleSave();
-          btn.textContent='✓ 已部署！約40秒生效';
-          setTimeout(function(){btn.textContent='🚀 部署';btn.disabled=false;},5000);
-        } else throw new Error(updated.message||'ref 更新失敗');
+        if(!(updated.object&&updated.object.sha))throw new Error(updated.message||'ref 更新失敗');
+        return updated;
+      })
+      .catch(function(e){
+        var isConflict=/fast.forward/i.test(e.message||'');
+        if(isConflict&&attemptsLeft>1){
+          return new Promise(function(res){setTimeout(res,900);}).then(function(){return commitWithRetry(attemptsLeft-1);});
+        }
+        throw e;
+      });
+    }
+    ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH,null).then(function(_r0){
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/commits/'+_r0.object.sha,null);
+      }).then(function(_c0){
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/trees/'+_c0.tree.sha+'?recursive=1',null);
+      }).then(function(_tr0){
+        var _e=_tr0.tree.find(function(x){return x.path===FILE;});
+        if(!_e)throw new Error('找不到 '+FILE);
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/blobs/'+_e.sha,null);
+      }).then(function(_blobData){
+        var _bin=atob(_blobData.content.replace(/\n/g,''));
+        var _bytes=new Uint8Array(_bin.length);
+        for(var _bi=0;_bi<_bin.length;_bi++)_bytes[_bi]=_bin.charCodeAt(_bi);
+        return new TextDecoder('utf-8').decode(_bytes);
+      })
+      .then(function(html){
+        ctx.newHtml=buildDeployHtml(html);
+        if(!ctx.newHtml)throw new Error('無法定位 state 區塊');
+        btn.textContent='⏳ 上傳 blob…';
+        return toB64uAsync(ctx.newHtml).then(function(b64){return ghReq(pat,'POST','/repos/'+REPO+'/git/blobs',{content:b64,encoding:'base64'});});
+      })
+      .then(function(blob){
+        if(!blob.sha)throw new Error(blob.message||'blob 失敗');
+        ctx.blobSha=blob.sha;
+        return commitWithRetry(4);
+      })
+      .then(function(updated){
+        state._v=0;scheduleSave();
+        btn.textContent='✓ 已部署！約40秒生效';
+        setTimeout(function(){btn.textContent='🚀 部署';btn.disabled=false;},5000);
       })
       .catch(function(e){alert('部署失敗: '+e.message);btn.textContent='🚀 部署';btn.disabled=false;});
   });
-
 
   // Init lists
   renderAdminArtList();renderAdminPhList();renderAdminCertList();
