@@ -122,6 +122,7 @@ body{display:flex;align-items:center;justify-content:center;font-family:'Inter',
 var SAVE_KEY='kc_pf_admin_cache';
 var GH_IMGS_BASE='https://kc09393.github.io/portfolio/imgs/',GH_STATE_PATH='imgs/state.json',_ghSyncTm=null;
 function escH(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+var _uploadRetryCount=0;
 var IDB_NAME='kc_pf_imgs',IDB_STORE='imgs',_idb=null;
 
 function openIDB(){if(_idb)return Promise.resolve(_idb);return new Promise(function(res,rej){var r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=function(e){e.target.result.createObjectStore(IDB_STORE);};r.onsuccess=function(e){_idb=e.target.result;res(_idb);};r.onerror=function(){rej(r.error);};});}
@@ -149,7 +150,7 @@ function ghUploadImg(p,key,dataUrl){
   var ext=dataUrl.indexOf('image/png')>-1?'png':'jpg';
   var path='/repos/kc09393/portfolio/contents/imgs/'+key+'.'+ext;
   var b64=dataUrl.split(',')[1];
-  if(!b64||b64.length<100){
+  if(!b64){
     console.warn('ghUploadImg: aborted, empty/too-short data for',key,'dataUrl head:',(dataUrl||'').slice(0,60));
     return Promise.resolve(null);
   }
@@ -199,8 +200,16 @@ async function ghSyncState(){
     +state.certs.filter(function(c){return c.main&&c.main.startsWith('data:');}).length;
   if(_failedUploads>0){
     var _gs=document.getElementById('global-saved');
-    if(_gs)flashSaved('⚠ '+_failedUploads+' 張圖片上傳失敗,將自動重試',_gs);
-    scheduleGhSync();
+    _uploadRetryCount=(_uploadRetryCount||0)+1;
+    if(_uploadRetryCount<5){
+      if(_gs)flashSaved('⚠ '+_failedUploads+' 張圖片上傳失敗,將自動重試('+_uploadRetryCount+'/5)',_gs);
+      scheduleGhSync();
+    } else {
+      if(_gs)flashSaved('✗ '+_failedUploads+' 張圖片持續上傳失敗,請重新編輯該項目上傳圖片',_gs);
+      console.warn('ghSyncState: gave up retrying uploads after 5 attempts');
+    }
+  } else {
+    _uploadRetryCount=0;
   }
   var clean={
     _v:Date.now(),
