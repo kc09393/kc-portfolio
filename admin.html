@@ -763,7 +763,20 @@ function bindAdmin(){
     }
     btn.textContent='⏳ 讀取…';btn.disabled=true;
     var ctx={};
-    fetch(location.href).then(function(r){return r.text();})
+    ghReq(pat,'GET','/repos/'+REPO+'/git/ref/heads/'+BRANCH,null).then(function(_r0){
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/commits/'+_r0.object.sha,null);
+      }).then(function(_c0){
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/trees/'+_c0.tree.sha+'?recursive=1',null);
+      }).then(function(_tr0){
+        var _e=_tr0.tree.find(function(x){return x.path===FILE;});
+        if(!_e)throw new Error('找不到 '+FILE);
+        return ghReq(pat,'GET','/repos/'+REPO+'/git/blobs/'+_e.sha,null);
+      }).then(function(_blobData){
+        var _bin=atob(_blobData.content.replace(/\n/g,''));
+        var _bytes=new Uint8Array(_bin.length);
+        for(var _bi=0;_bi<_bin.length;_bi++)_bytes[_bi]=_bin.charCodeAt(_bi);
+        return new TextDecoder('utf-8').decode(_bytes);
+      })
       .then(function(html){
         ctx.newHtml=buildDeployHtml(html);
         if(!ctx.newHtml)throw new Error('無法定位 state 區塊');
