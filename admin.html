@@ -149,14 +149,19 @@ function ghUploadImg(p,key,dataUrl){
   var ext=dataUrl.indexOf('image/png')>-1?'png':'jpg';
   var path='/repos/kc09393/portfolio/contents/imgs/'+key+'.'+ext;
   var b64=dataUrl.split(',')[1];
+  if(!b64||b64.length<100){
+    console.warn('ghUploadImg: aborted, empty/too-short data for',key,'dataUrl head:',(dataUrl||'').slice(0,60));
+    return Promise.resolve(null);
+  }
   return _ghReq(p,'GET',path,null).then(function(ex){
     var body={message:'upload '+key,content:b64,branch:'main'};
     if(ex&&ex.sha)body.sha=ex.sha;
     return _ghReq(p,'PUT',path,body);
   }).then(function(res){
-    if(res&&res.content){
+    if(res&&res.content&&res.content.size>0){
       return 'https://kc09393.github.io/portfolio/imgs/'+key+'.'+ext;
     }
+    console.warn('ghUploadImg: upload for',key,'did not return a valid content.size, response:',res);
     return null;
   });
 }
@@ -189,6 +194,14 @@ async function ghSyncState(){
     }
   });
   if(uploads.length>0)await Promise.all(uploads);
+  var _failedUploads=state.artworks.filter(function(a){return a.img&&a.img.startsWith('data:');}).length
+    +state.photos.filter(function(ph){return ph.img&&ph.img.startsWith('data:');}).length
+    +state.certs.filter(function(c){return c.main&&c.main.startsWith('data:');}).length;
+  if(_failedUploads>0){
+    var _gs=document.getElementById('global-saved');
+    if(_gs)flashSaved('⚠ '+_failedUploads+' 張圖片上傳失敗,將自動重試',_gs);
+    scheduleGhSync();
+  }
   var clean={
     _v:Date.now(),
     bio:state.bio||'',
