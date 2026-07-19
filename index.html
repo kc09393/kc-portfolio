@@ -78,7 +78,7 @@ nav.scrolled{background:rgba(9,9,9,.96);backdrop-filter:blur(20px);border-bottom
 .ham-ln{width:22px;height:1px;background:var(--wht);transition:all .3s;display:block}
 @media(max-width:900px){
   nav{padding:20px 24px}nav.scrolled{padding:13px 24px}
-  .nav-links{display:none;position:fixed;inset:0;background:rgba(9,9,9,.99);flex-direction:column;justify-content:center;align-items:center;gap:44px}
+  .nav-links{display:none;position:fixed;inset:0;background:rgba(9,9,9,.99);flex-direction:column;justify-content:center;align-items:center;gap:44px;-webkit-transform:translateZ(0);transform:translateZ(0);will-change:transform}
   .nav-links.open{display:flex}.nav-links a{font-size:13px;letter-spacing:.3em}
   .ham{display:flex}
 }
@@ -571,7 +571,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(255,255,255,.18)}
 <div id="intro">
   <div class="intro-logo">KC</div>
   <div class="intro-line"></div>
-  <div class="intro-sub">Portfolio 2025</div>
+  <div class="intro-sub">Portfolio 2026</div>
 </div>
 
 <div id="progress-bar"></div>
@@ -599,7 +599,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(255,255,255,.18)}
   <div class="h-vline"></div>
   <div class="h-top">
     <div class="h-eyebrow"><span class="h-ey-static">高齊 KC &nbsp;·&nbsp; </span><span class="h-ey-type">Fashion · Visual Design · Brand Strategy</span></div>
-    <span class="h-year">Portfolio &nbsp;·&nbsp; 2025</span>
+    <span class="h-year">Portfolio &nbsp;·&nbsp; 2026</span>
   </div>
   <div class="h-center">
     <h1 class="h-title">讓設計<span class="line2">驅動 <em>市場</em></span></h1>
@@ -1003,12 +1003,13 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 });
 
 // ── INTRO ──────────────────────────────────────────
-window.addEventListener('load',function(){
-  setTimeout(function(){
-    document.getElementById('intro').classList.add('done');
-    setTimeout(function(){var i=document.getElementById('intro');i.style.display='none';},900);
-  },1600);
-});
+// Uses a fixed delay from script execution rather than window 'load' —
+// 'load' waits for every image on the page (including large gallery images
+// loaded dynamically from state.json), which can stall this on slow connections.
+setTimeout(function(){
+  document.getElementById('intro').classList.add('done');
+  setTimeout(function(){var i=document.getElementById('intro');i.style.display='none';},900);
+},1600);
 
 // ── PROGRESS ───────────────────────────────────────
 var pb=document.getElementById('progress-bar');
