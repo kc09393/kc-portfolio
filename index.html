@@ -955,8 +955,6 @@ window.bindImageFade=function(){
   });
 };
 window.bindImageFade();
-// Re-run after admin saves
-document.addEventListener('adminSaved',bindImageFade);
 
 
 // Smooth scroll with nav offset
@@ -1120,8 +1118,6 @@ function navLB(dir){var items=getGalleryItems(curGallery);curIdx=(curIdx+dir+ite
 
 // Delegates
 document.addEventListener('click',function(e){
-  var admOv=document.getElementById('adm-ov');
-  if(admOv&&admOv.style.display==='flex')return;
   var art=e.target.closest('#P_g3d .art-item');
   if(art){openLB('art',parseInt(art.dataset.idx||0));return;}
   var ph=e.target.closest('#P_gph .ph-item');
@@ -1353,86 +1349,9 @@ document.getElementById('lb-img').addEventListener('click',function(e){
 function escH(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ── State ──────────────────────────────────────────────
-var SAVE_KEY='kc_pf_v7';
-var GH_IMGS_BASE='https://kc09393.github.io/portfolio/imgs/',GH_STATE_PATH='imgs/state.json',_ghSyncTm=null;
-var state={"_v":1783065673731,"bio":"","artworks":[{"key":"d0","title":"木構秘境","lbl":"3D Environment / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d0.png"},{"key":"d1","title":"破碎座標","lbl":"3D Sculpture / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d1.png"},{"key":"d2","title":"冰晶花語","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d2.png"},{"key":"d3","title":"緋色流形","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d3.png"},{"key":"d4","title":"藍線之獸","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d4.png"},{"key":"d5","title":"光環少女","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d5.png"},{"key":"d6","title":"灼刻 KAUCHI","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d6.png"},{"key":"d7","title":"創作進行式","lbl":"3D Character / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d7.png"},{"key":"d8","title":"橘狐吊飾","lbl":"3D Product / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d8.png"},{"key":"d9","title":"紫焰行者","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d9.png"},{"key":"d10","title":"虹光露珠","lbl":"3D Render / Blender","sub":"3D Art 繚 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d10.png"},{"key":"a1783016993242","title":"Untitled","lbl":"Mixed Media","sub":"","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783016993242.jpg"},{"key":"a1783063703328","title":"Untitled","lbl":"Mixed Media","sub":"","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783063703328.jpg"},{"key":"a1783065668111","title":"Untitled","lbl":"Mixed Media","sub":"","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783065668111.jpg"}],"photos":[{"key":"p0","title":"蜜與花","sub":"微距 · 自然","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p0.jpg"},{"key":"p1","title":"黃昏出航","sub":"風景 · 海洋","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p1.jpg"},{"key":"p2","title":"縱身","sub":"街頭 · 動態","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p2.jpg"},{"key":"p3","title":"波上宮","sub":"神社 · 沖繩","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p3.jpg"},{"key":"p1783014244264","title":"TEST-RED","sub":"","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p1783014244264.png"},{"key":"p1783014246256","title":"TEST-BLUE","sub":"","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p1783014246256.png"},{"key":"p1783014267153","title":"TEST-LIME","sub":"","desc":"","img":""},{"key":"p1783015700159","title":"RACE-TEST-SHOULD-BE-BLOCKED","sub":"","desc":"","img":""}],"certs":[{"key":"adobe_ai","title":"Adobe Certified Professional","sub":"Graphic Design & Illustration · Illustrator","cat":"international","desc":"Adobe 原廠頒發的國際認證，代表在 Illustrator 向量圖形、品牌 VI 設計與插畫排版上達到專業標準，是設計業界普遍認可的技術憑證。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ai.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ai.jpg"},{"key":"adobe_ps","title":"Adobe Certified Professional","sub":"Visual Design · Photoshop","cat":"international","desc":"Adobe 原廠認證的 Photoshop 視覺設計師，具備圖像合成、時尚修圖、商業視覺製作等國際水準能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ps.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ps.jpg"},{"key":"adobe_vd","title":"Adobe Certified Professional","sub":"Visual Designer（跨平台綜合認證）","cat":"international","desc":"整合數位媒體、品牌視覺與跨軟體設計思維的 Adobe 視覺設計師綜合認證，代表具備完整的數位設計生態系能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_vd.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_vd.jpg"},{"key":"labor_visual","title":"勞動部丙級技術士","sub":"視覺傳達設計","cat":"government","desc":"勞動部頒發之視覺傳達設計技術士，在平面設計、排版與視覺溝通上達到政府認定的技術水準，是設計類求職市場普遍認可的專業證明。","main":"https://kc09393.github.io/portfolio/imgs/cert-labor_visual.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-labor_visual.jpg"},{"key":"labor_sw","title":"勞動部丙級技術士","sub":"電腦軟體應用","cat":"government","desc":"勞動部電腦軟體應用技術士，涵蓋辦公室軟體操作、數位文件製作與資料管理，體現跨軟體的數位工具實務能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-labor_sw.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-labor_sw.jpg"},{"key":"service_mgr","title":"服務業管理師","sub":"商業服務與顧客體驗管理","cat":"professional","desc":"具備顧客體驗設計、服務流程優化與品牌現場執行的商業管理能力，讓創意提案不只停在視覺，更能落地為可執行的服務體驗。","main":"https://kc09393.github.io/portfolio/imgs/cert-service_mgr.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-service_mgr.jpg"},{"key":"color_mgr","title":"色彩規劃管理師","sub":"色彩美學 · 商業配色策略","cat":"professional","desc":"具備色彩心理學、商業配色策略與時尚美學應用的專業知識，在品牌視覺與產品陳列上能精準運用色彩語言傳遞情感與訊息。","main":"https://kc09393.github.io/portfolio/imgs/cert-color_mgr.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-color_mgr.jpg"},{"key":"tqc","title":"TQC+ 認證","sub":"影像編輯製作","cat":"tech","desc":"通過電腦技能基金會的影像處理技術認證，具備專業影像後製、數位輸出與素材整合的標準化技術能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-tqc.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-tqc.jpg"},{"key":"kaiwu","title":"凱渥模特兒經紀","sub":"時尚產業實習課程修了","cat":"fashion","desc":"凱渥為台灣最具規模的時尚模特兒經紀公司。完成此課程代表直接踏入產業核心，了解商業時尚拍攝、造型規劃與品牌合作的實際運作邏輯。","main":"https://kc09393.github.io/portfolio/imgs/cert-kaiwu.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-kaiwu.jpg"},{"key":"lifeguard1","title":"水上安全救生員證","sub":"內政部消防署","cat":"government","desc":"通過內政部消防署認證的水上安全救生員資格，具備水域緊急救援與安全管理能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard1.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard1.jpg"},{"key":"lifeguard2","title":"基本救命術認證","sub":"急救培訓認證","cat":"government","desc":"取得基本救命術（BLS）認證，具備心肺復甦術（CPR）與 AED 操作能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard2.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard2.jpg"},{"key":"landscape","title":"景觀樹木修剪技術士","sub":"景觀樹藝技術認證","cat":"professional","desc":"通過景觀樹木修剪專業技術認證，具備植物養護、景觀規劃與樹藝操作等相關實務能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-landscape.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-landscape.jpg"},{"key":"award1","title":"系所專題競賽","sub":"優秀作品獎狀","cat":"award","desc":"系所畢業專題評審肯定，作品在創意概念、視覺語言呈現與商業應用落地上獲得整體高度評價。","main":"https://kc09393.github.io/portfolio/imgs/cert-award1.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-award1.jpg"},{"key":"award2","title":"系所專題競賽","sub":"人氣作品獎","cat":"award","desc":"由全系同學票選產生的人氣獎，代表作品在視覺共鳴、概念溝通與情感連結上得到最廣泛的認同。","main":"https://kc09393.github.io/portfolio/imgs/cert-award2.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-award2.jpg"}]};
+var GH_IMGS_BASE='https://kc09393.github.io/portfolio/imgs/';
+var state={"_v":1784000000000,"bio":"","artworks":[{"key":"d0","title":"木構秘境","lbl":"3D Environment / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d0.png"},{"key":"d1","title":"破碎座標","lbl":"3D Sculpture / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d1.png"},{"key":"d2","title":"冰晶花語","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d2.png"},{"key":"d3","title":"緋色流形","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d3.png"},{"key":"d4","title":"藍線之獸","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d4.png"},{"key":"d5","title":"光環少女","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d5.png"},{"key":"d6","title":"灼刻 KAUCHI","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d6.png"},{"key":"d7","title":"創作進行式","lbl":"3D Character / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d7.png"},{"key":"d8","title":"橘狐吊飾","lbl":"3D Product / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d8.png"},{"key":"d9","title":"紫焰行者","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d9.png"},{"key":"d10","title":"虹光露珠","lbl":"3D Render / Blender","sub":"3D Art · 2026","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-d10.png"},{"key":"a1783016993242","title":"餐桌靜物","lbl":"Watercolor","sub":"Still Life","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783016993242.jpg"},{"key":"a1783063703328","title":"綠境","lbl":"Oil on Canvas","sub":"Abstract","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783063703328.jpg"},{"key":"a1783068812511","title":"瓶罐習作","lbl":"Pencil on Paper","sub":"Sketch","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783068812511.jpg"},{"key":"a1783071747508","title":"苔跡","lbl":"Oil on Canvas","sub":"Abstract","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783071747508.jpg"},{"key":"a1783072804013","title":"微光","lbl":"Oil on Canvas","sub":"Abstract","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783072804013.jpg"},{"key":"a1783072846079","title":"瓶與果","lbl":"Pencil on Paper","sub":"Sketch","desc":"","img":"https://kc09393.github.io/portfolio/imgs/art-a1783072846079.jpg"}],"photos":[{"key":"p0","title":"蜜與花","sub":"微距 · 自然","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p0.jpg"},{"key":"p1","title":"黃昏出航","sub":"風景 · 海洋","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p1.jpg"},{"key":"p2","title":"縱身","sub":"街頭 · 動態","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p2.jpg"},{"key":"p3","title":"波上宮","sub":"神社 · 沖繩","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-p3.jpg"},{"key":"a1783065668111","title":"城市光軌","sub":"長曝光 · 夜景","desc":"","img":"https://kc09393.github.io/portfolio/imgs/ph-a1783065668111.jpg"}],"certs":[{"key":"adobe_ai","title":"Adobe Certified Professional","sub":"Graphic Design \u0026 Illustration · Illustrator","cat":"international","desc":"Adobe 原廠頒發的國際認證，代表在 Illustrator 向量圖形、品牌 VI 設計與插畫排版上達到專業標準，是設計業界普遍認可的技術憑證。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ai.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ai.jpg"},{"key":"adobe_ps","title":"Adobe Certified Professional","sub":"Visual Design · Photoshop","cat":"international","desc":"Adobe 原廠認證的 Photoshop 視覺設計師，具備圖像合成、時尚修圖、商業視覺製作等國際水準能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ps.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_ps.jpg"},{"key":"adobe_vd","title":"Adobe Certified Professional","sub":"Visual Designer（跨平台綜合認證）","cat":"international","desc":"整合數位媒體、品牌視覺與跨軟體設計思維的 Adobe 視覺設計師綜合認證，代表具備完整的數位設計生態系能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-adobe_vd.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-adobe_vd.jpg"},{"key":"labor_visual","title":"勞動部丙級技術士","sub":"視覺傳達設計","cat":"government","desc":"勞動部頒發之視覺傳達設計技術士，在平面設計、排版與視覺溝通上達到政府認定的技術水準，是設計類求職市場普遍認可的專業證明。","main":"https://kc09393.github.io/portfolio/imgs/cert-labor_visual.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-labor_visual.jpg"},{"key":"labor_sw","title":"勞動部丙級技術士","sub":"電腦軟體應用","cat":"government","desc":"勞動部電腦軟體應用技術士，涵蓋辦公室軟體操作、數位文件製作與資料管理，體現跨軟體的數位工具實務能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-labor_sw.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-labor_sw.jpg"},{"key":"service_mgr","title":"服務業管理師","sub":"商業服務與顧客體驗管理","cat":"professional","desc":"具備顧客體驗設計、服務流程優化與品牌現場執行的商業管理能力，讓創意提案不只停在視覺，更能落地為可執行的服務體驗。","main":"https://kc09393.github.io/portfolio/imgs/cert-service_mgr.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-service_mgr.jpg"},{"key":"color_mgr","title":"色彩規劃管理師","sub":"色彩美學 · 商業配色策略","cat":"professional","desc":"具備色彩心理學、商業配色策略與時尚美學應用的專業知識，在品牌視覺與產品陳列上能精準運用色彩語言傳遞情感與訊息。","main":"https://kc09393.github.io/portfolio/imgs/cert-color_mgr.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-color_mgr.jpg"},{"key":"tqc","title":"TQC+ 認證","sub":"影像編輯製作","cat":"tech","desc":"通過電腦技能基金會的影像處理技術認證，具備專業影像後製、數位輸出與素材整合的標準化技術能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-tqc.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-tqc.jpg"},{"key":"kaiwu","title":"凱渥模特兒經紀","sub":"時尚產業實習課程修了","cat":"fashion","desc":"凱渥為台灣最具規模的時尚模特兒經紀公司。完成此課程代表直接踏入產業核心，了解商業時尚拍攝、造型規劃與品牌合作的實際運作邏輯。","main":"https://kc09393.github.io/portfolio/imgs/cert-kaiwu.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-kaiwu.jpg"},{"key":"lifeguard1","title":"水上安全救生員證","sub":"內政部消防署","cat":"government","desc":"通過內政部消防署認證的水上安全救生員資格，具備水域緊急救援與安全管理能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard1.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard1.jpg"},{"key":"lifeguard2","title":"基本救命術認證","sub":"急救培訓認證","cat":"government","desc":"取得基本救命術（BLS）認證，具備心肺復甦術（CPR）與 AED 操作能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard2.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-lifeguard2.jpg"},{"key":"landscape","title":"景觀樹木修剪技術士","sub":"景觀樹藝技術認證","cat":"professional","desc":"通過景觀樹木修剪專業技術認證，具備植物養護、景觀規劃與樹藝操作等相關實務能力。","main":"https://kc09393.github.io/portfolio/imgs/cert-landscape.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-landscape.jpg"},{"key":"award1","title":"系所專題競賽","sub":"優秀作品獎狀","cat":"award","desc":"系所畢業專題評審肯定，作品在創意概念、視覺語言呈現與商業應用落地上獲得整體高度評價。","main":"https://kc09393.github.io/portfolio/imgs/cert-award1.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-award1.jpg"},{"key":"award2","title":"系所專題競賽","sub":"人氣作品獎","cat":"award","desc":"由全系同學票選產生的人氣獎，代表作品在視覺共鳴、概念溝通與情感連結上得到最廣泛的認同。","main":"https://kc09393.github.io/portfolio/imgs/cert-award2.jpg","thumb":"https://kc09393.github.io/portfolio/imgs/cert-award2.jpg"}]};
 
-// ── Persistence ────────────────────────────────────────
-// ── IndexedDB image store ─────────────────────────────
-var IDB_NAME='kc_pf_imgs',IDB_STORE='imgs',_idb=null;
-function openIDB(){if(_idb)return Promise.resolve(_idb);return new Promise(function(res,rej){var r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=function(e){e.target.result.createObjectStore(IDB_STORE);};r.onsuccess=function(e){_idb=e.target.result;res(_idb);};r.onerror=function(){rej(r.error);};});}
-function idbPut(k,v){if(_idb){try{var tx=_idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put({img:v,ts:Date.now()},k);}catch(e){}return;}openIDB().then(function(db){try{var tx=db.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put({img:v,ts:Date.now()},k);}catch(e){}}).catch(function(){});}
-function idbGetAll(){return openIDB().then(function(db){return new Promise(function(res){var tx=db.transaction(IDB_STORE,'readonly'),s=tx.objectStore(IDB_STORE),out={};var cr=s.openCursor();cr.onsuccess=function(e){var c=e.target.result;if(c){out[c.key]=c.value;c.continue();}else res(out);};cr.onerror=function(){res({});};});}).catch(function(){return{};});}
-
-function save(){
-  try{
-    var slim={_v:state._v,bio:state.bio||'',artworks:state.artworks.map(function(a){return{key:a.key,title:a.title,lbl:a.lbl,sub:a.sub,desc:a.desc,img:(a.img&&!a.img.startsWith('data:'))?a.img:''};}),photos:state.photos.map(function(p){return{key:p.key,title:p.title,sub:p.sub,desc:p.desc,img:(p.img&&!p.img.startsWith('data:'))?p.img:''};}),certs:state.certs.map(function(c){return{key:c.key,title:c.title,sub:c.sub,cat:c.cat,desc:c.desc,main:(c.main&&!c.main.startsWith('data:'))?c.main:'',thumb:(c.thumb&&!c.thumb.startsWith('data:'))?c.thumb:''};})};
-    localStorage.setItem(SAVE_KEY,JSON.stringify(slim));
-  }catch(e){}
-  state.artworks.forEach(function(a){if(a.img)idbPut('art|'+a.key,a.img);});
-  state.photos.forEach(function(p){if(p.img)idbPut('ph|'+p.key,p.img);});
-  state.certs.forEach(function(c){if(c.main)idbPut('cert|'+c.key,c.main);});
-  scheduleGhSync();
-}
-var st2; function scheduleSave(){clearTimeout(st2);st2=setTimeout(save,800);}
-function _ghReq(p,m,path,body){var o={method:m,cache:'no-store',headers:{'Authorization':'token '+p,'Accept':'application/vnd.github.v3+json'}};if(body){o.headers['Content-Type']='application/json';o.body=JSON.stringify(body);}return fetch('https://api.github.com'+path,o).then(function(r){return r.json();}).catch(function(){return null;});}function ghUploadImg(p,key,dataUrl){
-  var ext=dataUrl.indexOf('image/png')>-1?'png':'jpg';
-  var path='/repos/kc09393/portfolio/contents/imgs/'+key+'.'+ext;
-  var b64=dataUrl.split(',')[1];
-  return _ghReq(p,'GET',path,null).then(function(ex){
-    var body={message:'upload '+key,content:b64,branch:'main'};
-    if(ex&&ex.sha)body.sha=ex.sha;
-    return _ghReq(p,'PUT',path,body);
-  }).then(function(res){
-    if(res&&res.content){
-      return 'https://kc09393.github.io/portfolio/imgs/'+key+'.'+ext;
-    }
-    return null;
-  });
-}
-function scheduleGhSync(){clearTimeout(_ghSyncTm);_ghSyncTm=setTimeout(ghSyncState,3000);}
-async function ghSyncState(){
-  var p=localStorage.getItem('kc_pf_pat');
-  if(!p)return;
-  var uploads=[];
-  state.artworks.forEach(function(a){
-    if(a.img&&a.img.startsWith('data:')){
-      uploads.push(ghUploadImg(p,'art-'+a.key,a.img).then(function(url){
-        if(url){a.img=url;idbPut('art|'+a.key,{img:url});}
-      }));
-    }
-  });
-  state.photos.forEach(function(ph){
-    if(ph.img&&ph.img.startsWith('data:')){
-      uploads.push(ghUploadImg(p,'ph-'+ph.key,ph.img).then(function(url){
-        if(url){ph.img=url;idbPut('ph|'+ph.key,{img:url});}
-      }));
-    }
-  });
-  state.certs.forEach(function(c){
-    if(c.main&&c.main.startsWith('data:')){
-      uploads.push(ghUploadImg(p,'cert-'+c.key,c.main).then(function(url){
-        if(url){c.main=url;idbPut('cert|'+c.key,{img:url});}
-      }));
-    }
-  });
-  if(uploads.length>0)await Promise.all(uploads);
-  var clean={
-    _v:Date.now(),
-    bio:state.bio||'',
-    artworks:state.artworks.map(function(a){return{key:a.key,title:a.title||'',lbl:a.lbl||'',sub:a.sub||'',desc:a.desc||'',img:(a.img&&!a.img.startsWith('data:'))?a.img:''};}).filter(Boolean),
-    photos:state.photos.map(function(ph){return{key:ph.key,title:ph.title||'',sub:ph.sub||'',desc:ph.desc||'',img:(ph.img&&!ph.img.startsWith('data:'))?ph.img:''};}).filter(Boolean),
-    certs:state.certs.map(function(c){return{key:c.key,title:c.title||'',sub:c.sub||'',cat:c.cat||'professional',desc:c.desc||'',main:(c.main&&!c.main.startsWith('data:'))?c.main:'',thumb:(c.thumb&&!c.thumb.startsWith('data:'))?c.thumb:''};}).filter(Boolean)
-  };
-  var __cleanSig=JSON.stringify({bio:clean.bio,artworks:clean.artworks,photos:clean.photos,certs:clean.certs});
-  if(__cleanSig===localStorage.getItem('kc_pf_last_sig'))return;
-  var b64=btoa(unescape(encodeURIComponent(JSON.stringify(clean,null,2))));
-  var ex=await _ghReq(p,'GET','/repos/kc09393/portfolio/contents/imgs/state.json',null);
-  var body={message:'sync state '+clean._v,content:b64,branch:'main'};
-  if(ex&&ex.sha)body.sha=ex.sha;
-  await _ghReq(p,'PUT','/repos/kc09393/portfolio/contents/imgs/state.json',body);
-  localStorage.setItem('kc_pf_last_sig',__cleanSig);
-}
 async function ghLoadStateJson(){
   var remote;
   try{
@@ -1448,66 +1367,13 @@ async function ghLoadStateJson(){
   if(remote.photos){remote.photos.forEach(function(rp){var lp=state.photos.find(function(p2){return p2.key===rp.key;});if(lp){if(rp.img&&rp.img!==lp.img){lp.img=rp.img;changed=true;}if(rp.title!==undefined&&rp.title!==lp.title){lp.title=rp.title;changed=true;}if(rp.sub!==undefined&&rp.sub!==lp.sub){lp.sub=rp.sub;changed=true;}if(rp.desc!==undefined&&rp.desc!==lp.desc){lp.desc=rp.desc;changed=true;}}else{state.photos.push(rp);changed=true;}});}
   if(remote.certs){remote.certs.forEach(function(rc,ri){var lc=state.certs[ri]||state.certs.find(function(c){return c.key&&c.key===rc.key;});if(lc){if(rc.main&&rc.main!==lc.main&&rc.main.indexOf('undefined')<0){lc.main=rc.main;changed=true;}if(rc.thumb&&rc.thumb!==lc.thumb){lc.thumb=rc.thumb;changed=true;}if(rc.title&&rc.title!==lc.title){lc.title=rc.title;changed=true;}if(rc.sub!==undefined&&rc.sub!==lc.sub){lc.sub=rc.sub;changed=true;}if(rc.cat&&rc.cat!==lc.cat){lc.cat=rc.cat;changed=true;}if(rc.desc!==undefined&&rc.desc!==lc.desc){lc.desc=rc.desc;changed=true;}if(rc.key&&rc.key!==lc.key){lc.key=rc.key;changed=true;}}else{state.certs.push(rc);changed=true;}});}
   if(remote.bio&&remote.bio!==state.bio){state.bio=remote.bio;changed=true;}
-  if(changed){state._v=remote._v;save();renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();}
+  if(changed){state._v=remote._v;renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();}
 }
 
-
-function loadState(){
-  try{
-    // Try new key first
-    var raw=localStorage.getItem(SAVE_KEY);
-    if(raw&&state._v){try{var lv=JSON.parse(raw);var localV=lv._v||0;if(state._v>localV){localStorage.removeItem(SAVE_KEY);raw=null;}}catch(e){}}
-    if(!raw){
-      // Migrate from old key
-      raw=localStorage.getItem('kc_pf_v5');
-      if(raw){
-        var old=JSON.parse(raw);
-        // Migrate old imgs3d/imgsPhoto to new artworks/photos
-        if(old.imgs3d){old.imgs3d.forEach(function(img,i){if(img&&state.artworks[i])state.artworks[i].img=img;});}
-        if(old.imgsPhoto){old.imgsPhoto.forEach(function(img,i){if(img&&state.photos[i])state.photos[i].img=img;});}
-        if(old.titles3d){old.titles3d.forEach(function(t,i){if(t&&state.artworks[i])state.artworks[i].title=t;});}
-        if(old.titlesPhoto){old.titlesPhoto.forEach(function(t,i){if(t&&state.photos[i])state.photos[i].title=t;});}
-        if(old.certs&&old.certs.length)state.certs=old.certs;
-        return;
-      }
-    }
-    if(!raw)return;
-    var d=JSON.parse(raw);state._v=d._v||state._v;
-    // Merge: preserve embedded images if saved state has empty img fields
-    if(d.artworks&&d.artworks.length){
-      d.artworks.forEach(function(a,i){if(a&&state.artworks[i]){if(!a.img&&state.artworks[i].img)a.img=state.artworks[i].img;}});
-      state.artworks=d.artworks;
-    }
-    if(d.photos&&d.photos.length){
-      d.photos.forEach(function(p,i){if(p&&state.photos[i]){if(!p.img&&state.photos[i].img)p.img=state.photos[i].img;}});
-      state.photos=d.photos;
-    }
-    if(d.certs&&d.certs.length){
-      d.certs.forEach(function(c,i){if(c&&state.certs[i]){if(!c.main&&state.certs[i].main)c.main=state.certs[i].main;}});
-      state.certs=d.certs;
-    }
-    if(d.bio)state.bio=d.bio;
-  }catch(e){}
-}
-
-// ── Flash message ──────────────────────────────────────
-function flashSaved(m,el){
-  var t=el||document.querySelector('#ap-b .saved-msg');
-  if(!t)return;
-  t.textContent=m||'✓ 已儲存';t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},2200);
-}
 
 // ── Cert helpers ───────────────────────────────────────
 var CAT_ZH={international:'國際認證',government:'政府技術士',professional:'專業認證',tech:'數位技能',fashion:'時尚產業',award:'競賽獎項'};
 function certLabel(c){return CAT_ZH[c]||c;}
-function initCertsFromDOM(){
-  state.certs=[];
-  document.querySelectorAll('#cert-grid .cert-card').forEach(function(card){
-    var mi=card.querySelector('.cert-main-img'),mt=card.querySelector('.cert-meta-title'),ms=card.querySelector('.cert-meta-sub'),md=card.querySelector('.cert-meta-desc');
-    state.certs.push({key:card.dataset.key||('c'+Date.now()+Math.random()),main:mi?mi.src:'',title:mt?mt.textContent:'',sub:ms?ms.textContent:'',desc:md?md.textContent:'',cat:card.dataset.cat||'professional'});
-  });
-}
 
 // ══════════════════════════════════════════════════════
 // RENDER FUNCTIONS
@@ -1599,22 +1465,9 @@ function updateStats(){
 // INIT
 // ══════════════════════════════════════════════════════
 (function init(){
-  loadState();
-  if(!state.certs||!state.certs.length)initCertsFromDOM();
   renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();
   bindImageFade();
-  idbGetAll().then(function(imgs){
-    var changed=false;
-    if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
-    state.artworks.forEach(function(a){if(!a.img){var e=imgs['art|'+a.key];if(e&&e.img){a.img=e.img;changed=true;}}});
-    state.photos.forEach(function(p){if(!p.img){var e=imgs['ph|'+p.key];if(e&&e.img){p.img=e.img;changed=true;}}});
-    state.certs.forEach(function(c){if(!c.main){var e=imgs['cert|'+c.key];if(e&&e.img){c.main=e.img;changed=true;}}});
-    if(changed){renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();}
-  });  // Save on hide/unload — iOS Safari fix
-  document.addEventListener('visibilitychange',function(){if(document.hidden)save();});
-  window.addEventListener('pagehide',save);
   ghLoadStateJson();
-
 })();
 })();
 </script>

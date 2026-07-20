@@ -1,12 +1,12 @@
 {
-  "_v": 1783077424261,
+  "_v": 1784000000000,
   "bio": "",
   "artworks": [
     {
       "key": "d0",
       "title": "木構秘境",
       "lbl": "3D Environment / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d0.png"
     },
@@ -14,7 +14,7 @@
       "key": "d1",
       "title": "破碎座標",
       "lbl": "3D Sculpture / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d1.png"
     },
@@ -22,7 +22,7 @@
       "key": "d2",
       "title": "冰晶花語",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d2.png"
     },
@@ -30,7 +30,7 @@
       "key": "d3",
       "title": "緋色流形",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d3.png"
     },
@@ -38,7 +38,7 @@
       "key": "d4",
       "title": "藍線之獸",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d4.png"
     },
@@ -46,7 +46,7 @@
       "key": "d5",
       "title": "光環少女",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d5.png"
     },
@@ -54,7 +54,7 @@
       "key": "d6",
       "title": "灼刻 KAUCHI",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d6.png"
     },
@@ -62,7 +62,7 @@
       "key": "d7",
       "title": "創作進行式",
       "lbl": "3D Character / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d7.png"
     },
@@ -70,7 +70,7 @@
       "key": "d8",
       "title": "橘狐吊飾",
       "lbl": "3D Product / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d8.png"
     },
@@ -78,7 +78,7 @@
       "key": "d9",
       "title": "紫焰行者",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d9.png"
     },
@@ -86,63 +86,55 @@
       "key": "d10",
       "title": "虹光露珠",
       "lbl": "3D Render / Blender",
-      "sub": "3D Art 繚 2026",
+      "sub": "3D Art · 2026",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-d10.png"
     },
     {
       "key": "a1783016993242",
-      "title": "Untitled",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "餐桌靜物",
+      "lbl": "Watercolor",
+      "sub": "Still Life",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783016993242.jpg"
     },
     {
       "key": "a1783063703328",
-      "title": "Untitled",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "綠境",
+      "lbl": "Oil on Canvas",
+      "sub": "Abstract",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783063703328.jpg"
     },
     {
-      "key": "a1783065668111",
-      "title": "Untitled",
-      "lbl": "Mixed Media",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/art-a1783065668111.jpg"
-    },
-    {
       "key": "a1783068812511",
-      "title": "（待補標題）",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "瓶罐習作",
+      "lbl": "Pencil on Paper",
+      "sub": "Sketch",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783068812511.jpg"
     },
     {
       "key": "a1783071747508",
-      "title": "Untitled",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "苔跡",
+      "lbl": "Oil on Canvas",
+      "sub": "Abstract",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783071747508.jpg"
     },
     {
       "key": "a1783072804013",
-      "title": "（待補標題）",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "微光",
+      "lbl": "Oil on Canvas",
+      "sub": "Abstract",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783072804013.jpg"
     },
     {
       "key": "a1783072846079",
-      "title": "（待補標題）",
-      "lbl": "Mixed Media",
-      "sub": "",
+      "title": "瓶與果",
+      "lbl": "Pencil on Paper",
+      "sub": "Sketch",
       "desc": "",
       "img": "https://kc09393.github.io/portfolio/imgs/art-a1783072846079.jpg"
     }
@@ -177,32 +169,11 @@
       "img": "https://kc09393.github.io/portfolio/imgs/ph-p3.jpg"
     },
     {
-      "key": "p1783014244264",
-      "title": "TEST-RED",
-      "sub": "",
+      "key": "a1783065668111",
+      "title": "城市光軌",
+      "sub": "長曝光 · 夜景",
       "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/ph-p1783014244264.png"
-    },
-    {
-      "key": "p1783014246256",
-      "title": "TEST-BLUE",
-      "sub": "",
-      "desc": "",
-      "img": "https://kc09393.github.io/portfolio/imgs/ph-p1783014246256.png"
-    },
-    {
-      "key": "p1783014267153",
-      "title": "TEST-LIME",
-      "sub": "",
-      "desc": "",
-      "img": ""
-    },
-    {
-      "key": "p1783015700159",
-      "title": "RACE-TEST-SHOULD-BE-BLOCKED",
-      "sub": "",
-      "desc": "",
-      "img": ""
+      "img": "https://kc09393.github.io/portfolio/imgs/ph-a1783065668111.jpg"
     }
   ],
   "certs": [
