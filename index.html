@@ -148,12 +148,7 @@ section{padding:128px 72px;scroll-margin-top:60px}
 .a-contact-link{font-size:12px;letter-spacing:.12em;color:rgba(201,169,110,.72);text-decoration:none;transition:color .25s}
 .a-contact-link:hover{color:var(--gld)}
 .a-contact-sep{color:rgba(244,242,238,.15);font-size:10px}
-.stat-row{display:flex;gap:48px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(244,242,238,.08)}
-.stat-item{display:flex;flex-direction:column;gap:4px}
-.stat-num{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--gld);line-height:1}
-.stat-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,242,238,.45)}
 @media(max-width:900px){#about{grid-template-columns:1fr;gap:52px}}
-@media(max-width:480px){.stat-row{gap:28px}.stat-num{font-size:26px}}
 
 /* ── EXPERIENCE ───────────────────────────────────── */
 #experience .exp-wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
@@ -638,12 +633,6 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
       <a href="mailto:chi093093chi@gmail.com" class="a-contact-link">chi093093chi@gmail.com</a>
       <span class="a-contact-sep">·</span>
       <a href="tel:+886905581266" class="a-contact-link">0905 581 266</a>
-    </div>
-
-    <div class="stat-row reveal" id="stat-row">
-      <div class="stat-item"><span class="stat-num" data-target="0">0</span><span class="stat-lbl">藝術創作</span></div>
-      <div class="stat-item"><span class="stat-num" data-target="0">0</span><span class="stat-lbl">攝影作品</span></div>
-      <div class="stat-item"><span class="stat-num" data-target="0">0</span><span class="stat-lbl">專業證照</span></div>
     </div>
 
   </div>
@@ -1363,7 +1352,7 @@ async function ghLoadStateJson(){
   if(remote.photos){remote.photos.forEach(function(rp){var lp=state.photos.find(function(p2){return p2.key===rp.key;});if(lp){if(rp.img&&rp.img!==lp.img){lp.img=rp.img;changed=true;}if(rp.title!==undefined&&rp.title!==lp.title){lp.title=rp.title;changed=true;}if(rp.sub!==undefined&&rp.sub!==lp.sub){lp.sub=rp.sub;changed=true;}if(rp.desc!==undefined&&rp.desc!==lp.desc){lp.desc=rp.desc;changed=true;}}else{state.photos.push(rp);changed=true;}});}
   if(remote.certs){remote.certs.forEach(function(rc,ri){var lc=state.certs[ri]||state.certs.find(function(c){return c.key&&c.key===rc.key;});if(lc){if(rc.main&&rc.main!==lc.main&&rc.main.indexOf('undefined')<0){lc.main=rc.main;changed=true;}if(rc.thumb&&rc.thumb!==lc.thumb){lc.thumb=rc.thumb;changed=true;}if(rc.title&&rc.title!==lc.title){lc.title=rc.title;changed=true;}if(rc.sub!==undefined&&rc.sub!==lc.sub){lc.sub=rc.sub;changed=true;}if(rc.cat&&rc.cat!==lc.cat){lc.cat=rc.cat;changed=true;}if(rc.desc!==undefined&&rc.desc!==lc.desc){lc.desc=rc.desc;changed=true;}if(rc.key&&rc.key!==lc.key){lc.key=rc.key;changed=true;}}else{state.certs.push(rc);changed=true;}});}
   if(remote.bio&&remote.bio!==state.bio){state.bio=remote.bio;changed=true;}
-  if(changed){state._v=remote._v;renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();}
+  if(changed){state._v=remote._v;renderArtGrid();renderPhotoGrid();renderCertGrid();}
 }
 
 
@@ -1412,49 +1401,11 @@ function renderCertGrid(){
   }).join('');
 }
 
-// ── STATS COUNT-UP ──────────────────────────────────────
-function updateStats(){
-  var row=document.getElementById('stat-row');
-  if(!row)return;
-  var nums=row.querySelectorAll('.stat-num');
-  if(nums[0])nums[0].dataset.target=state.artworks.filter(function(a){return a.img;}).length;
-  if(nums[1])nums[1].dataset.target=state.photos.filter(function(p){return p.img;}).length;
-  if(nums[2])nums[2].dataset.target=state.certs.filter(function(c){return c.main;}).length;
-}
-(function(){
-  var row=document.getElementById('stat-row');
-  if(!row)return;
-  var started=false;
-  function animateCount(el,target,dur){
-    var startTime=null;
-    function step(ts){
-      if(!startTime)startTime=ts;
-      var p=Math.min((ts-startTime)/dur,1);
-      var eased=1-Math.pow(1-p,3);
-      el.textContent=Math.round(eased*target);
-      if(p<1)requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting&&!started){
-        started=true;
-        row.querySelectorAll('.stat-num').forEach(function(el){
-          animateCount(el,parseInt(el.dataset.target||'0',10),1200);
-        });
-        io.disconnect();
-      }
-    });
-  },{threshold:.4});
-  io.observe(row);
-})();
-
 // ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
 (function init(){
-  renderArtGrid();renderPhotoGrid();renderCertGrid();updateStats();
+  renderArtGrid();renderPhotoGrid();renderCertGrid();
   bindImageFade();
   ghLoadStateJson();
 })();
