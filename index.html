@@ -173,44 +173,6 @@ section{padding:128px 72px;scroll-margin-top:60px}
 .hobby-chip:hover{border-color:rgba(201,169,110,.25);color:rgba(201,169,110,.7)}
 @media(max-width:900px){#experience .exp-wrap{grid-template-columns:1fr;gap:52px}}
 
-/* ── STUDIO ───────────────────────────────────────── */
-.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 28px}
-.art-item{position:relative;cursor:zoom-in}
-.art-item:first-child{grid-column:span 2;grid-row:span 2}
-.art-item:nth-child(4){grid-column:span 2}
-.art-img-box{position:relative;overflow:hidden;background:#0c0c0c;aspect-ratio:1/1}
-.art-item:first-child .art-img-box{aspect-ratio:auto;height:100%}
-.art-item img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease),filter .65s var(--ease);will-change:transform}
-.art-item:hover img{transform:scale(1.045);filter:brightness(1.02) contrast(1.02)}
-.art-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:linear-gradient(135deg,#0c0c0c 0%,#141414 100%);position:relative}
-.art-placeholder::before{content:"";width:28px;height:1px;background:rgba(201,169,110,.3);display:block}
-.art-placeholder::after{content:"作品即將呈現";font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,238,.28);font-family:var(--sans);display:block}
-
-.art-cap{display:flex;align-items:baseline;gap:14px;margin-top:18px;padding-bottom:16px;border-bottom:1px solid rgba(244,242,238,.14);transition:border-color .35s var(--ease)}
-.art-item:hover .art-cap{border-color:var(--gld)}
-.art-cap-num{font-family:var(--serif);font-size:12px;font-weight:500;color:rgba(201,169,110,.7);flex-shrink:0}
-.art-cap-text{display:flex;flex-direction:column;gap:3px;min-width:0}
-.art-cap-title{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--wht);line-height:1.25;transition:color .3s}
-.art-item:hover .art-cap-title{color:var(--gld)}
-.art-cap-sub{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:rgba(244,242,238,.45)}
-.art-num{position:absolute;top:12px;right:12px;font-family:var(--serif);font-size:10px;color:rgba(244,242,238,.6);letter-spacing:.12em;background:rgba(0,0,0,.4);padding:3px 9px;backdrop-filter:blur(4px);z-index:2}
-
-/* ── LENS ────────────────────────────────────────── */
-.ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 28px}
-.ph-item{position:relative;cursor:zoom-in}
-.ph-item:nth-child(2){grid-column:span 2;grid-row:span 2}
-.ph-img-box{position:relative;overflow:hidden;background:#0c0c0c;aspect-ratio:4/3}
-.ph-item:nth-child(2) .ph-img-box{aspect-ratio:auto;height:100%}
-.ph-item img{width:100%;height:100%;object-fit:cover;transition:transform .75s var(--ease),filter .65s var(--ease);will-change:transform}
-.ph-item:hover img{transform:scale(1.045);filter:brightness(1.02) contrast(1.02)}
-.ph-cap{display:flex;align-items:baseline;gap:14px;margin-top:18px;padding-bottom:16px;border-bottom:1px solid rgba(244,242,238,.14);transition:border-color .35s var(--ease)}
-.ph-item:hover .ph-cap{border-color:var(--gld)}
-.ph-cap-num{font-family:var(--serif);font-size:12px;font-weight:500;color:rgba(201,169,110,.7);flex-shrink:0}
-.ph-cap-text{display:flex;flex-direction:column;gap:3px;min-width:0}
-.ph-cap-title{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--wht);line-height:1.25;transition:color .3s}
-.ph-item:hover .ph-cap-title{color:var(--gld)}
-.ph-cap-sub{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:rgba(244,242,238,.45)}
-
 /* ── SKILLS ──────────────────────────────────────── */
 #skills{background:linear-gradient(to bottom,var(--blk) 0%,#0c0c0c 100%)}
 .sk-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -221,8 +183,7 @@ section{padding:128px 72px;scroll-margin-top:60px}
 .sk-tags{display:flex;flex-wrap:wrap;gap:10px 24px}
 .sk-tag{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,242,238,.58);cursor:default;transition:color .22s;line-height:1.95}
 .sk-tag:hover{color:rgba(201,169,110,.8)}
-@media(max-width:900px){.sk-wrap,.art-grid,.ph-grid{grid-template-columns:1fr 1fr}.art-item:first-child,.art-item:nth-child(4),.ph-item:nth-child(2){grid-column:span 1;grid-row:auto}.art-item:first-child .art-img-box,.ph-item:nth-child(2) .ph-img-box{aspect-ratio:1/1;height:auto}.ph-item:nth-child(2) .ph-img-box{aspect-ratio:4/3}}
-@media(max-width:640px){.art-grid,.ph-grid{grid-template-columns:1fr;gap:32px}.art-cap-title,.ph-cap-title{font-size:16px}}
+@media(max-width:900px){.sk-wrap{grid-template-columns:1fr 1fr}}
 
 /* ── CREDENTIALS ──────────────────────────────────── */
 .cert-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:44px}
@@ -434,12 +395,11 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 .anim-line{height:1px;background:linear-gradient(90deg,transparent,var(--gld),transparent);width:0;margin:0 auto;transition:width 1.4s var(--ease)}
 .anim-line.v{width:80%}
 @media print{
-  #intro,#progress-bar,nav,#btt,#lb,.h-scr,.scr-bar,#lang-btn,.marquee-wrap,#studio,#lens,#skills,.seeking-bar,.art-grid,.ph-grid{display:none!important}
+  #intro,#progress-bar,nav,#btt,#lb,.h-scr,.scr-bar,#lang-btn,.marquee-wrap,#skills,.seeking-bar{display:none!important}
   body{background:#fff;color:#111}
   section{padding:40px 40px;break-inside:avoid}
   .w-title,.h-title,.a-name,.ct-title{color:#111}
   .w-title em,.h-title em,.a-name em,.ct-title em{color:#8a6d3e}
-  .art-item,.ph-item{break-inside:avoid}
   .cert-grid{grid-template-columns:repeat(2,1fr)}
   .a-bio,.tl-note,.cert-meta-desc,.w-desc{color:#444}
   .s-label,.tl-period{color:#8a6d3e}
@@ -484,10 +444,6 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
   #experience{padding:72px 20px}
   .tl-period{font-size:10px}
   .tl-job{font-size:15px}
-
-  /* STUDIO / LENS */
-  #studio,#lens{padding:72px 20px}
-  .art-grid,.ph-grid{grid-template-columns:1fr;gap:16px}
 
   /* SKILLS */
   #skills{padding:72px 20px}
@@ -535,8 +491,6 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
   <ul class="nav-links" id="nav-links">
     <li><a href="#about" data-sec="about">About</a></li>
     <li><a href="#experience" data-sec="experience">Experience</a></li>
-    <li><a href="#studio" data-sec="studio">Studio</a></li>
-    <li><a href="#lens" data-sec="lens">Lens</a></li>
     <li><a href="#skills" data-sec="skills">Skills</a></li>
     <li><a href="#credentials" data-sec="credentials">Certs</a></li>
     <li><a href="#contact" data-sec="contact">Contact</a></li>
@@ -559,7 +513,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
     <div class="h-bottom">
       <p class="h-sub" id="hero-sub">結合商業策略邏輯與數位視覺美學——我是高齊，時尚產業的跨域創作者，致力於讓品牌語言精準落地、視覺敘事打動人心。</p>
       <div class="h-cta-wrap">
-        <a href="#studio" class="h-cta"><span class="cta-ln"></span><span>View Work</span></a>
+        <a href="#experience" class="h-cta"><span class="cta-ln"></span><span>View Work</span></a>
       </div>
     </div>
   </div>
@@ -604,11 +558,9 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
   <div class="toc-grid reveal">
     <a href="#about" class="toc-item"><span class="toc-num">00</span><span class="toc-name">About<span class="toc-en">個人簡介</span></span></a>
     <a href="#experience" class="toc-item"><span class="toc-num">01</span><span class="toc-name">Experience<span class="toc-en">工作與學歷</span></span></a>
-    <a href="#studio" class="toc-item"><span class="toc-num">02</span><span class="toc-name">Studio<span class="toc-en">藝術創作</span></span></a>
-    <a href="#lens" class="toc-item"><span class="toc-num">03</span><span class="toc-name">Lens<span class="toc-en">攝影與影像</span></span></a>
-    <a href="#skills" class="toc-item"><span class="toc-num">04</span><span class="toc-name">Skills<span class="toc-en">技能與軟體</span></span></a>
-    <a href="#credentials" class="toc-item"><span class="toc-num">05</span><span class="toc-name">Credentials<span class="toc-en">認證與獎項</span></span></a>
-    <a href="#contact" class="toc-item"><span class="toc-num">06</span><span class="toc-name">Contact<span class="toc-en">聯繫我</span></span></a>
+    <a href="#skills" class="toc-item"><span class="toc-num">02</span><span class="toc-name">Skills<span class="toc-en">技能與軟體</span></span></a>
+    <a href="#credentials" class="toc-item"><span class="toc-num">03</span><span class="toc-name">Credentials<span class="toc-en">認證與獎項</span></span></a>
+    <a href="#contact" class="toc-item"><span class="toc-num">04</span><span class="toc-name">Contact<span class="toc-en">聯繫我</span></span></a>
   </div>
 </section>
 
@@ -734,36 +686,6 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
   </div>
 </section>
 
-<!-- STUDIO -->
-<section id="studio" class="sec-div">
-  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">02.</span>Studio</div>
-  <div class="w-hdr reveal">
-    <div class="w-title-wrap">
-      <h2 class="w-title">藝術<br/><em>創作</em></h2>
-      <span class="w-title-en">Fine Art &amp; Creative Works</span>
-    </div>
-    <span class="w-idx">02</span>
-  </div>
-  <p class="w-desc reveal" id="studio-desc">以壓克力、油彩與數位媒材探索形體、色彩與情感之間的張力——每件作品都是對「視覺如何說話」的叩問。點擊任一作品放大瀏覽。</p>
-  <div class="art-grid reveal" id="P_g3d"></div>
-</section>
-
-
-<!-- LENS -->
-<section id="lens" class="sec-div">
-  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">03.</span>Lens</div>
-  <div class="w-hdr reveal">
-    <div class="w-title-wrap">
-      <h2 class="w-title">攝影<br/><em>與影像</em></h2>
-      <span class="w-title-en">Through the Lens</span>
-    </div>
-    <span class="w-idx">03</span>
-  </div>
-  <p class="w-desc reveal" id="lens-desc">鏡頭是梳理視覺直覺的方式——從夕陽海面到街頭瞬間，每一幀都是對光線、情緒與當下氛圍的直接回應。點擊任一作品放大瀏覽。</p>
-  <div class="ph-grid reveal" id="P_gph"></div>
-</section>
-
-
 <div class="marquee-wrap" style="background:#0c0c0c">
   <div class="marquee-track" style="animation-direction:reverse;animation-duration:22s">
     <div class="marquee-item" style="color:rgba(201,169,110,.14)">Adobe Photoshop<span class="marquee-sep"></span></div>
@@ -789,13 +711,13 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 
 <!-- SKILLS -->
 <section id="skills" class="sec-div">
-  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">04.</span>Skills &amp; Tools</div>
+  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">02.</span>Skills &amp; Tools</div>
   <div class="w-hdr reveal">
     <div class="w-title-wrap">
       <h2 class="w-title">技能<br/><em>與軟體</em></h2>
       <span class="w-title-en">Skills &amp; Software</span>
     </div>
-    <span class="w-idx">04</span>
+    <span class="w-idx">02</span>
   </div>
   <p class="w-desc reveal" id="skills-desc">橫跨設計軟體、影像後製、3D 建模與品牌策略——工具只是手段，真正的能力是判斷何時用哪把刀。</p>
   <div class="sk-wrap">
@@ -839,13 +761,13 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 
 <!-- CREDENTIALS -->
 <section id="credentials" class="sec-div">
-  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">05.</span>Credentials</div>
+  <div class="s-label"><span style="font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600">03.</span>Credentials</div>
   <div class="w-hdr reveal">
     <div class="w-title-wrap">
       <h2 class="w-title">認證<br/><em>與獎項</em></h2>
       <span class="w-title-en">Certified &amp; Recognized</span>
     </div>
-    <span class="w-idx">05</span>
+    <span class="w-idx">03</span>
   </div>
   <p class="w-desc reveal" id="creds-desc">從 Adobe 國際認證到勞動部技術士，從色彩工程師到凱渥時尚實習——每一張證書都代表一個具體的能力維度。</p>
   <div class="cert-filters reveal"><button class="cf-btn on" data-filter="all">All</button><button class="cf-btn" data-filter="international">國際認證</button><button class="cf-btn" data-filter="government">政府技術士</button><button class="cf-btn" data-filter="professional">專業認證</button><button class="cf-btn" data-filter="fashion">時尚產業</button><button class="cf-btn" data-filter="tech">數位技能</button><button class="cf-btn" data-filter="award">競賽獎項</button></div>
@@ -881,6 +803,11 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
     <a href="tel:+886905581266" class="ct-card">
       <div class="ct-ico">✆</div><div class="ct-lbl">Phone</div>
       <div class="ct-val">0905 · 581 · 266</div>
+    </a>
+    <a href="https://www.instagram.com/kc_93_/" target="_blank" rel="noopener noreferrer" class="ct-card">
+      <div class="ct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></div>
+      <div class="ct-lbl">Instagram</div>
+      <div class="ct-val">@kc_93_</div>
     </a>
     <div class="ct-card">
       <div class="ct-ico">◎</div><div class="ct-lbl">Location</div>
@@ -991,7 +918,7 @@ window.addEventListener('scroll',function(){
   // sidebar dots
   var allDots=document.querySelectorAll('.sd-dot');
   allDots.forEach(function(d){d.classList.remove('active');});
-  var secs=['hero','about','experience','studio','lens','skills','credentials','contact'];
+  var secs=['hero','about','experience','skills','credentials','contact'];
   var activeSec='hero';
   secs.forEach(function(id){var el=document.getElementById(id);if(el&&st>=el.offsetTop-160)activeSec=id;});
   sdDots.forEach(function(d){if(d.dataset.sec===activeSec)d.classList.add('active');});
