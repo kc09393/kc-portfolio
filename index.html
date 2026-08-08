@@ -21,6 +21,8 @@
 <meta name="theme-color" content="#090909"/>
 <title>高齊 KC — Creative Portfolio</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23090909'/%3E%3Ctext x='50' y='65' font-family='Georgia,serif' font-size='42' fill='%23c9a96e' text-anchor='middle'%3EKC%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script type="application/ld+json">
 {
@@ -31,6 +33,7 @@
   "url": "https://kc09393.github.io/portfolio/",
   "image": "https://kc09393.github.io/portfolio/imgs/about-photo.jpg",
   "email": "mailto:chi093093chi@gmail.com",
+  "sameAs": ["https://www.instagram.com/kc_93_/"],
   "jobTitle": "Fashion Marketing & Brand Visual Specialist",
   "description": "高齊 KC — 時尚產業的行銷與視覺跨域工作者。Adobe 國際認證，具備品牌視覺美編、活動企劃與精品零售實務經驗。",
   "knowsAbout": ["Fashion Marketing","Brand Visual","Event Planning","Retail Management","Adobe Creative Suite","Social Media Marketing"],
@@ -49,6 +52,7 @@ body{background:var(--blk);color:var(--wht);font-family:var(--sans);font-weight:
 ::-webkit-scrollbar{width:1px}::-webkit-scrollbar-thumb{background:rgba(201,169,110,.35)}
 ::selection{background:rgba(201,169,110,.2);color:var(--wht)}
 img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--gld);outline-offset:4px}
 
 /* ── INTRO ─────────────────────────────────────────── */
 #intro{position:fixed;inset:0;z-index:9000;background:var(--blk);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;pointer-events:none}
@@ -74,7 +78,7 @@ nav.scrolled{background:rgba(9,9,9,.96);backdrop-filter:blur(20px);border-bottom
 .nav-links a:hover{color:rgba(244,242,238,.8)}
 .nav-links a.active{color:rgba(244,242,238,.9)}.nav-links a.active::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:14px;height:1px;background:rgba(201,169,110,.6)}
 .nav-links a.active::after,.nav-links a:hover::after{width:100%}
-.ham{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:3px}
+.ham{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:3px;border:0;background:transparent;color:inherit;appearance:none}
 .ham-ln{width:22px;height:1px;background:var(--wht);transition:all .3s;display:block}
 @media(max-width:900px){
   nav{padding:20px 24px}nav.scrolled{padding:13px 24px}
@@ -470,6 +474,11 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 }
 
 .cert-img-wrap.cert-no-img{display:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+  #intro{display:none}
+}
 </style>
 </head>
 <body>
@@ -486,7 +495,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 
 
 <!-- NAV -->
-<nav id="nav">
+<nav id="nav" aria-label="主要導覽">
   <a href="#hero" class="nav-logo">KC<span style="color:var(--gld)">.</span></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="#about" data-sec="about">About</a></li>
@@ -495,7 +504,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
     <li><a href="#credentials" data-sec="credentials">Certs</a></li>
     <li><a href="#contact" data-sec="contact">Contact</a></li>
   </ul>
-  <button id="lang-btn" title="Switch Language">EN</button><div class="ham" id="ham"><span class="ham-ln"></span><span class="ham-ln"></span><span class="ham-ln"></span></div>
+  <button id="lang-btn" title="Switch Language">EN</button><button class="ham" id="ham" type="button" aria-label="開啟選單" aria-controls="nav-links" aria-expanded="false"><span class="ham-ln"></span><span class="ham-ln"></span><span class="ham-ln"></span></button>
 </nav>
 
 <!-- HERO -->
@@ -909,8 +918,8 @@ window.addEventListener('scroll',function(){
   btt.classList.toggle('show',st>400);
   var cur=null;
   sections.forEach(function(s){if(st>=s.el.offsetTop-160)cur=s;});
-  navLinks.forEach(function(a){a.classList.remove('active');});
-  if(cur)cur.a.classList.add('active');
+  navLinks.forEach(function(a){a.classList.remove('active');a.removeAttribute('aria-current');});
+  if(cur){cur.a.classList.add('active');cur.a.setAttribute('aria-current','page');}
   // sidebar dots
   var allDots=document.querySelectorAll('.sd-dot');
   allDots.forEach(function(d){d.classList.remove('active');});
@@ -922,8 +931,12 @@ window.addEventListener('scroll',function(){
 
 // ── MOBILE MENU ────────────────────────────────────
 var ham=document.getElementById('ham'),nl=document.getElementById('nav-links');
-ham.addEventListener('click',function(){nl.classList.toggle('open');});
-nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+ham.addEventListener('click',function(){
+  var isOpen=nl.classList.toggle('open');
+  ham.setAttribute('aria-expanded',String(isOpen));
+  ham.setAttribute('aria-label',isOpen?'關閉選單':'開啟選單');
+});
+nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');ham.setAttribute('aria-expanded','false');ham.setAttribute('aria-label','開啟選單');});});
 
 // ── REVEAL ─────────────────────────────────────────
 var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('v');io.unobserve(x.target);}});},{threshold:.07});
@@ -1004,7 +1017,7 @@ var galleries={
   photo:{items:[], sel:function(){return document.querySelectorAll('#P_gph .ph-item');}},
   cert:{items:[], sel:function(){return document.querySelectorAll('#cert-grid .cert-card:not(.cf-hidden)');}}
 };
-var curGallery=null, curIdx=0;
+var curGallery=null, curIdx=0, lightboxScrollY=0, lastFocusedElement=null;
 
 function getGalleryItems(type){
   if(type==='art'){return Array.from(galleries.art.sel()).map(function(el){var img=el.querySelector('img'),t=el.querySelector('.art-cap-title'),s=el.querySelector('.art-cap-sub');return{src:img?img.src:'',title:t?t.textContent:'',sub:s?s.textContent:''};}); }
@@ -1017,11 +1030,23 @@ function openLB(type,idx){
   var items=getGalleryItems(type);
   if(!items[idx])return;
   var it=items[idx];
-  lbImg.src=it.src; lbT.textContent=it.title; lbS.textContent=it.sub;
+  if(!lb.classList.contains('open')){
+    lastFocusedElement=document.activeElement;
+    lightboxScrollY=window.scrollY;
+    document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.top='-'+lightboxScrollY+'px';document.body.style.width='100%';
+  }
+  lbImg.src=it.src;lbImg.alt=it.title;lbT.textContent=it.title;lbS.textContent=it.sub;
   lbCounter.textContent=(idx+1)+' / '+items.length;
-  lb.classList.add('open'); document.body.style.overflow='hidden'; document.body.style.position='fixed'; document.body.style.width='100%';
+  lb.classList.add('open');
 }
-function closeLB(){lb.classList.remove('open');document.body.style.overflow='';document.body.style.position='';document.body.style.width='';setTimeout(function(){lbImg.src='';},350);}
+function closeLB(){
+  if(!lb.classList.contains('open'))return;
+  lb.classList.remove('open');
+  document.body.style.overflow='';document.body.style.position='';document.body.style.top='';document.body.style.width='';
+  window.scrollTo(0,lightboxScrollY);
+  if(lastFocusedElement&&typeof lastFocusedElement.focus==='function')lastFocusedElement.focus();
+  setTimeout(function(){lbImg.src='';lbImg.alt='';},350);
+}
 function navLB(dir){var items=getGalleryItems(curGallery);curIdx=(curIdx+dir+items.length)%items.length;openLB(curGallery,curIdx);}
 
 // Delegates
@@ -1032,6 +1057,14 @@ document.addEventListener('click',function(e){
   if(ph){openLB('photo',parseInt(ph.dataset.idx||0));return;}
   var cert=e.target.closest('#cert-grid .cert-card:not(.cf-hidden)');
   if(cert){var vis=Array.from(document.querySelectorAll('#cert-grid .cert-card:not(.cf-hidden)'));openLB('cert',vis.indexOf(cert));return;}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  var cert=e.target.closest('#cert-grid .cert-card:not(.cf-hidden)');
+  if(!cert)return;
+  e.preventDefault();
+  var vis=Array.from(document.querySelectorAll('#cert-grid .cert-card:not(.cf-hidden)'));
+  openLB('cert',vis.indexOf(cert));
 });
 lbPrev.addEventListener('click',function(e){e.stopPropagation();navLB(-1);});
 lbNext.addEventListener('click',function(e){e.stopPropagation();navLB(1);});
@@ -1267,17 +1300,22 @@ async function ghLoadStateJson(){
     if(!_r.ok)return;
     remote=await _r.json();
   }catch(e){return;}
-  if(!remote||!remote._v)return;
-  var localV=state._v||0;
-  if(remote._v<=localV)return;
-  var changed=false;
-  if(remote.artworks){remote.artworks.forEach(function(ra){var la=state.artworks.find(function(a){return a.key===ra.key;});if(la){if(ra.img&&ra.img!==la.img){la.img=ra.img;changed=true;}if(ra.title!==undefined&&ra.title!==la.title){la.title=ra.title;changed=true;}if(ra.sub!==undefined&&ra.sub!==la.sub){la.sub=ra.sub;changed=true;}if(ra.desc!==undefined&&ra.desc!==la.desc){la.desc=ra.desc;changed=true;}if(ra.lbl!==undefined&&ra.lbl!==la.lbl){la.lbl=ra.lbl;changed=true;}}else{state.artworks.push(ra);changed=true;}});}
-  if(remote.photos){remote.photos.forEach(function(rp){var lp=state.photos.find(function(p2){return p2.key===rp.key;});if(lp){if(rp.img&&rp.img!==lp.img){lp.img=rp.img;changed=true;}if(rp.title!==undefined&&rp.title!==lp.title){lp.title=rp.title;changed=true;}if(rp.sub!==undefined&&rp.sub!==lp.sub){lp.sub=rp.sub;changed=true;}if(rp.desc!==undefined&&rp.desc!==lp.desc){lp.desc=rp.desc;changed=true;}}else{state.photos.push(rp);changed=true;}});}
-  if(remote.certs){remote.certs.forEach(function(rc,ri){var lc=state.certs[ri]||state.certs.find(function(c){return c.key&&c.key===rc.key;});if(lc){if(rc.main&&rc.main!==lc.main&&rc.main.indexOf('undefined')<0){lc.main=rc.main;changed=true;}if(rc.thumb&&rc.thumb!==lc.thumb){lc.thumb=rc.thumb;changed=true;}if(rc.title&&rc.title!==lc.title){lc.title=rc.title;changed=true;}if(rc.sub!==undefined&&rc.sub!==lc.sub){lc.sub=rc.sub;changed=true;}if(rc.cat&&rc.cat!==lc.cat){lc.cat=rc.cat;changed=true;}if(rc.desc!==undefined&&rc.desc!==lc.desc){lc.desc=rc.desc;changed=true;}if(rc.key&&rc.key!==lc.key){lc.key=rc.key;changed=true;}}else{state.certs.push(rc);changed=true;}});}
-  if(remote.bio&&remote.bio!==state.bio){state.bio=remote.bio;changed=true;}
-  if(changed){state._v=remote._v;renderArtGrid();renderPhotoGrid();renderCertGrid();}
-}
+  if(!remote||!remote._v||remote._v<=state._v)return;
 
+  // state.json is the admin's source of truth. Replacing each collection means
+  // additions, edits, reordering, and deletions all reach the public site.
+  if(Array.isArray(remote.artworks))state.artworks=remote.artworks;
+  if(Array.isArray(remote.photos))state.photos=remote.photos;
+  if(Array.isArray(remote.certs))state.certs=remote.certs;
+  if(typeof remote.bio==='string')state.bio=remote.bio;
+  state._v=remote._v;
+
+  if(state.bio){
+    var aboutBio=document.getElementById('about-bio');
+    if(aboutBio)aboutBio.textContent=state.bio;
+  }
+  renderArtGrid();renderPhotoGrid();renderCertGrid();
+}
 
 // ── Cert helpers ───────────────────────────────────────
 var CAT_ZH={international:'國際認證',government:'政府技術士',professional:'專業認證',tech:'數位技能',fashion:'時尚產業',award:'競賽獎項'};
@@ -1314,7 +1352,7 @@ function renderPhotoGrid(){
 function renderCertGrid(){
   var g=document.getElementById('cert-grid');if(!g)return;
   g.innerHTML=state.certs.map(function(c,i){
-    return'<div class="cert-card" data-cat="'+escH(c.cat||'professional')+'" data-key="'+escH(c.key||'c'+i)+'" data-gtype="cert">'
+    return'<div class="cert-card" data-cat="'+escH(c.cat||'professional')+'" data-key="'+escH(c.key||'c'+i)+'" data-gtype="cert" role="button" tabindex="0" aria-label="開啟 '+escH(c.title)+' 證書">'
       +'<div class="cert-img-wrap'+(c.main?'':' cert-no-img')+'"><img class="cert-main-img" src="'+escH(c.main||'')+'" alt="'+escH(c.title)+'" loading="lazy" onerror="this.closest(\'.cert-img-wrap\').style.display=\'none\'"/></div>'
       +'<div class="cert-meta"><span class="cert-chip">'+certLabel(c.cat)+'</span>'
       +'<div class="cert-meta-title">'+escH(c.title)+'</div>'
