@@ -492,6 +492,7 @@ section{padding:clamp(84px,10vw,144px) clamp(24px,6vw,90px)}.sec-div{border-top-
 .s-label{color:rgba(226,196,140,.94);letter-spacing:.3em}.w-desc{font-size:15px;line-height:2;color:var(--muted)}
 #toc{padding-top:76px;padding-bottom:76px;background:linear-gradient(90deg,rgba(201,169,110,.075),transparent 65%)}.toc-grid{border-color:var(--line)}.toc-item{padding:28px 20px;border-color:var(--line)}.toc-item:nth-child(odd){border-right-color:var(--line)}.toc-item:hover{background:rgba(226,196,140,.08);padding-left:32px}.toc-name{font-size:clamp(20px,2vw,28px);font-weight:400}.toc-en{color:rgba(244,242,238,.55)}
 #about{align-items:center;gap:clamp(48px,9vw,132px)}.a-img{box-shadow:20px 22px 0 rgba(201,169,110,.08)}.a-name{letter-spacing:-.05em}.a-bio{font-size:15px;line-height:2;color:rgba(244,242,238,.78)}.a-contact{padding-top:18px;border-top:1px solid var(--line)}
+#work{background:linear-gradient(145deg,rgba(201,169,110,.055),transparent 52%)}.section-no{font-family:var(--serif);font-size:13px;color:rgba(201,169,110,.3);margin-right:12px;font-style:normal;font-weight:600}.work-intro{max-width:590px;margin:-26px 0 44px;color:var(--muted);font-size:15px;line-height:2}.work-grid{display:grid;grid-template-columns:1.08fr 1fr 1fr;grid-auto-rows:220px;gap:14px}.work-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:3px;background:#111;cursor:pointer;padding:0;text-align:left;color:var(--wht);min-height:220px}.work-card-feature{grid-row:span 2}.work-card-wide{grid-column:span 2}.work-img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.88) contrast(1.04);transition:transform .7s var(--ease),filter .5s}.work-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.85));transition:opacity .35s}.work-meta{position:absolute;left:20px;right:20px;bottom:18px;z-index:1;display:flex;flex-direction:column;gap:5px}.work-meta strong{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2vw,28px);letter-spacing:.03em}.work-meta small{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,242,238,.68)}.work-card:hover .work-img,.work-card:focus-visible .work-img{transform:scale(1.06);filter:saturate(1.08) contrast(1.06)}.work-card:focus-visible{outline:1px solid var(--gld);outline-offset:3px}@media(max-width:700px){#work{padding-top:84px;padding-bottom:84px}.work-intro{margin:-10px 0 28px;font-size:13px}.work-grid{grid-template-columns:1fr 1fr;grid-auto-rows:190px;gap:10px}.work-card-feature{grid-row:span 2}.work-card-wide{grid-column:span 2}.work-meta{left:14px;right:14px;bottom:13px}.work-meta strong{font-size:20px}.work-meta small{font-size:7.5px;letter-spacing:.14em}}
 #experience{background:linear-gradient(180deg,rgba(255,255,255,.014),transparent)}.exp-col-title{color:rgba(244,242,238,.7);border-bottom-color:var(--line)}.tl-row{padding:18px 14px 28px;margin:0 -14px}.tl-row:hover{background:rgba(226,196,140,.055)}.tl-note{color:rgba(244,242,238,.67)}
 #skills{background:linear-gradient(145deg,#0d0d0b,#15120d)}.sk-wrap{gap:10px}.sk-block{background:rgba(255,255,255,.025);border:1px solid rgba(226,196,140,.1);padding:42px 34px}.sk-block:hover{background:rgba(226,196,140,.07);border-color:rgba(226,196,140,.28)}.sk-tag{color:rgba(244,242,238,.68)}
 #credentials{background:linear-gradient(180deg,transparent,rgba(201,169,110,.04))}.cf-btn{border-radius:999px;padding:8px 16px;color:rgba(244,242,238,.52)}.cf-btn.on{background:var(--gld);color:#1a160e;border-color:var(--gld)}.cert-grid{gap:16px}.cert-card{background:rgba(255,255,255,.026);border-color:rgba(226,196,140,.16);border-radius:4px;overflow:hidden}.cert-card:hover{background:rgba(226,196,140,.055);transform:translateY(-6px)}.cert-meta{padding:18px}.cert-meta-title{font-size:16px}.cert-meta-desc{color:rgba(244,242,238,.56)}
@@ -519,6 +520,7 @@ footer{border-color:var(--line)}
   <a href="#hero" class="nav-logo">KC<span style="color:var(--gld)">.</span></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="#about" data-sec="about">關於我</a></li>
+        <li><a href="#work" data-sec="work">作品</a></li>
     <li><a href="#experience" data-sec="experience">經歷</a></li>
     <li><a href="#skills" data-sec="skills">技能</a></li>
     <li><a href="#credentials" data-sec="credentials">證照</a></li>
@@ -542,7 +544,7 @@ footer{border-color:var(--line)}
     <div class="h-bottom">
       <p class="h-sub" id="hero-sub">我是 KC，專注於品牌視覺、行銷企劃與內容製作。從概念、畫面到執行細節，讓每一次溝通都更清楚、更有記憶點。</p>
       <div class="h-cta-wrap">
-        <a href="#experience" class="h-cta"><span class="cta-ln"></span><span>查看經歷</span></a>
+        <a href="#work" class="h-cta"><span class="cta-ln"></span><span>查看作品</span></a>
         <a href="#contact" class="h-cta"><span class="cta-ln"></span><span>開始合作</span></a>
       </div>
     </div>
@@ -587,10 +589,11 @@ footer{border-color:var(--line)}
   <div class="s-label">Contents</div>
   <div class="toc-grid reveal">
     <a href="#about" class="toc-item"><span class="toc-num">00</span><span class="toc-name">About<span class="toc-en">個人簡介</span></span></a>
-    <a href="#experience" class="toc-item"><span class="toc-num">01</span><span class="toc-name">Experience<span class="toc-en">工作與學歷</span></span></a>
-    <a href="#skills" class="toc-item"><span class="toc-num">02</span><span class="toc-name">Skills<span class="toc-en">技能與軟體</span></span></a>
-    <a href="#credentials" class="toc-item"><span class="toc-num">03</span><span class="toc-name">Credentials<span class="toc-en">認證與獎項</span></span></a>
-    <a href="#contact" class="toc-item"><span class="toc-num">04</span><span class="toc-name">Contact<span class="toc-en">聯繫我</span></span></a>
+<a href="#work" class="toc-item"><span class="toc-num">01</span><span class="toc-name">Selected Work<span class="toc-en">精選作品</span></span></a>
+    <a href="#experience" class="toc-item"><span class="toc-num">02</span><span class="toc-name">Experience<span class="toc-en">工作與學歷</span></span></a>
+    <a href="#skills" class="toc-item"><span class="toc-num">03</span><span class="toc-name">Skills<span class="toc-en">技能與軟體</span></span></a>
+    <a href="#credentials" class="toc-item"><span class="toc-num">04</span><span class="toc-name">Credentials<span class="toc-en">認證與獎項</span></span></a>
+    <a href="#contact" class="toc-item"><span class="toc-num">05</span><span class="toc-name">Contact<span class="toc-en">聯繫我</span></span></a>
   </div>
 </section>
 
@@ -617,6 +620,36 @@ footer{border-color:var(--line)}
       <a href="tel:+886905581266" class="a-contact-link">0905 581 266</a>
     </div>
 
+  </div>
+</section>
+<!-- SELECTED WORK -->
+<section id="work" class="sec-div">
+  <div class="s-label"><span class="section-no">01.</span>Selected Work</div>
+  <div class="w-hdr reveal">
+    <div class="w-title-wrap">
+      <h2 class="w-title">精選<br/><em>作品</em></h2>
+      <span class="w-title-en">A selection of personal visual explorations</span>
+    </div>
+    <span class="w-idx">01</span>
+  </div>
+  <p class="work-intro reveal">從 3D 影像、字體實驗到手繪媒材，這些作品呈現我對色彩、材質與畫面節奏的持續探索。</p>
+  <div id="work-grid" class="work-grid">
+    <button type="button" class="work-card work-card-feature reveal" aria-label="開啟 幻生 概念創作">
+      <img class="work-img" src="imgs/art-d2.png" alt="幻生 3D 概念創作" loading="lazy"/>
+      <span class="work-meta"><strong>幻生</strong><small>3D Visual Exploration</small></span>
+    </button>
+    <button type="button" class="work-card reveal" aria-label="開啟 流動結構 概念創作">
+      <img class="work-img" src="imgs/art-d3.png" alt="流動結構 3D 概念創作" loading="lazy"/>
+      <span class="work-meta"><strong>流動結構</strong><small>3D Form Study</small></span>
+    </button>
+    <button type="button" class="work-card reveal" aria-label="開啟 熔岩字體 概念創作">
+      <img class="work-img" src="imgs/art-d6.png" alt="熔岩字體 視覺實驗" loading="lazy"/>
+      <span class="work-meta"><strong>熔岩字體</strong><small>Type &amp; Texture Study</small></span>
+    </button>
+    <button type="button" class="work-card work-card-wide reveal" aria-label="開啟 靜物練習 手繪作品">
+      <img class="work-img" src="imgs/art-a1783016993242.jpg" alt="靜物練習 手繪作品" loading="lazy"/>
+      <span class="work-meta"><strong>靜物練習</strong><small>Hand-drawn Color Study</small></span>
+    </button>
   </div>
 </section>
 
@@ -1046,12 +1079,18 @@ var lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),
     lbX=document.getElementById('lb-close'),lbPrev=document.getElementById('lb-prev'),
     lbNext=document.getElementById('lb-next'),lbCounter=document.getElementById('lb-counter');
 
-var galleries={cert:{sel:function(){return document.querySelectorAll('#cert-grid .cert-card:not(.cf-hidden)');}}};
+var galleries={cert:{sel:function(){return document.querySelectorAll('#cert-grid .cert-card:not(.cf-hidden)');}},work:{sel:function(){return document.querySelectorAll('#work-grid .work-card');}}};
 var curGallery=null, curIdx=0, lightboxScrollY=0, lastFocusedElement=null;
 
 function getGalleryItems(){
-  return Array.from(galleries.cert.sel()).map(function(el){
-    var img=el.querySelector('.cert-main-img'),t=el.querySelector('.cert-meta-title'),s=el.querySelector('.cert-meta-sub');
+  var gallery=galleries[curGallery]||galleries.cert;
+  return Array.from(gallery.sel()).map(function(el){
+    var img,t,s;
+    if(curGallery==='work'){
+      img=el.querySelector('.work-img');t=el.querySelector('.work-meta strong');s=el.querySelector('.work-meta small');
+    }else{
+      img=el.querySelector('.cert-main-img');t=el.querySelector('.cert-meta-title');s=el.querySelector('.cert-meta-sub');
+    }
     return{src:img?img.src:'',title:t?t.textContent:'',sub:s?s.textContent:''};
   });
 }function openLB(type,idx){
@@ -1076,7 +1115,7 @@ function closeLB(){
   if(lastFocusedElement&&typeof lastFocusedElement.focus==='function')lastFocusedElement.focus();
   setTimeout(function(){lbImg.src='';lbImg.alt='';},350);
 }
-function navLB(dir){var items=getGalleryItems();curIdx=(curIdx+dir+items.length)%items.length;openLB('cert',curIdx);}
+function navLB(dir){var items=getGalleryItems();curIdx=(curIdx+dir+items.length)%items.length;openLB(curGallery,curIdx);}
 
 // Certificate lightbox
 function openCertificate(card){
@@ -1092,6 +1131,21 @@ document.addEventListener('click',function(e){
   if(!cert)return;
   e.preventDefault();
   openCertificate(cert);
+});
+function openWork(card){
+  var works=Array.from(document.querySelectorAll('#work-grid .work-card'));
+  openLB('work',works.indexOf(card));
+}
+document.addEventListener('click',function(e){
+  var work=e.target.closest('#work-grid .work-card');
+  if(work)openWork(work);
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  var work=e.target.closest('#work-grid .work-card');
+  if(!work)return;
+  e.preventDefault();
+  openWork(work);
 });
 lbPrev.addEventListener('click',function(e){e.stopPropagation();navLB(-1);});
 lbNext.addEventListener('click',function(e){e.stopPropagation();navLB(1);});
