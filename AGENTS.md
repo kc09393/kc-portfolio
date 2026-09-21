@@ -4,16 +4,14 @@ kc09393 的個人作品集網站。
 
 ## 基本資訊
 
-- **正式網站**：https://kc09393.github.io/portfolio/
-- **後台管理**：https://kc09393.github.io/portfolio/admin.html（前台沒有連結指向後台，要直接輸入網址）
+- **正式網站**：https://kc09393.github.io/kc-portfolio/
+- **後台管理**：目前未部署；`admin.html` 不存在，不要使用舊的 `/portfolio/admin.html` 網址
 - **Repo**：`kc09393/portfolio`，branch `main`
 - **本機路徑**：`D:\Projects\網站\portfolio`（已 clone 到本機，走一般 `git` 流程）
 
 ## 日常新增／編輯內容（作品、照片、證照、簡介）
 
-走後台 `admin.html`：貼上 GitHub PAT（存在瀏覽器 localStorage，換裝置/瀏覽器要重貼）→ 新增/編輯/刪除後約 3 秒自動同步到 `imgs/state.json`，前台立即可見，不需要 git push、不需要按「部署」。
-
-「🚀 部署」按鈕只有直接修改 `index.html`/`admin.html` 的程式碼時才需要。
+目前走純靜態流程：在本機修改 `index.html` 與 `imgs/` 內的素材，確認預覽無誤後再使用一般 `git` 流程發布。`imgs/state.json` 與舊版 `admin.html` 後台流程不是目前前台的內容來源，不要重新接回舊後台。
 
 ## 修改網站程式碼（index.html / admin.html）
 
