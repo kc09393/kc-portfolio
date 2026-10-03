@@ -2,13 +2,13 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'sha256-Pa6+AVN7M9wKFDeoMcH/HdPxhlFhkkvpcIQKAqDNIhk=' 'sha256-EaEvrJOc1UIUHKRa3oHTYyT1hQz9i8IV+MqAMPWWxtI='; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'sha256-cxnlpEkgntZJe+sbFQMc5JUo1rkOc4QA4iy5hbOlnOk=' 'sha256-bE4S7rT/h4Ph+/luf2PboebVTSm7uL7d1a9iX+0uiYo='; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()"/>
 <meta name="description" content="高齊 KC 的求職作品集，聚焦品牌與商品視覺、社群內容、活動企劃與行銷執行，並收錄 3D 視覺、消費者研究與互動網站案例。"/>
 <link rel="canonical" href="https://kc09393.github.io/kc-portfolio/"/>
 <meta property="og:title" content="高齊 KC 作品集｜品牌視覺・內容企劃・行銷執行"/>
-<meta property="og:description" content="從品牌訊息與受眾出發，將需求整理成可使用的視覺、社群內容與活動素材。"/>
+<meta property="og:description" content="時尚經營、品牌視覺與零售經驗；收錄社群、活動、商品、3D 視覺、消費者研究與互動網站案例。"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://kc09393.github.io/kc-portfolio/"/>
 <meta property="og:site_name" content="KC 作品集"/>
@@ -17,9 +17,9 @@
 <meta property="og:image:width" content="1280"/>
 <meta property="og:image:height" content="1920"/>
 <meta property="og:image:alt" content="高齊 KC — Portrait"/>
-<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="高齊 KC 作品集｜品牌視覺・內容企劃・行銷執行"/>
-<meta name="twitter:description" content="從品牌訊息與受眾出發，將需求整理成可使用的視覺、社群內容與活動素材。"/>
+<meta name="twitter:description" content="時尚經營、品牌視覺與零售經驗；收錄社群、活動、商品、3D 視覺、消費者研究與互動網站案例。"/>
 <meta name="twitter:image" content="https://kc09393.github.io/kc-portfolio/imgs/about-photo.jpg"/>
 <meta name="theme-color" content="#090909"/>
 <title>高齊 KC 作品集｜品牌視覺・內容企劃・行銷執行</title>
@@ -481,7 +481,7 @@ footer p{font-size:8.5px;letter-spacing:.16em;color:rgba(244,242,238,.18)}
 }
 
 /* ── 2026 PORTFOLIO REFRESH ───────────────────────── */
-:root{--ink:#0a0a0a;--panel:#12110f;--panel-soft:#171510;--line:rgba(226,196,140,.18);--muted:rgba(244,242,238,.62)}
+:root{--ink:#0a0a0a;--panel:#12110f;--panel-soft:#171510;--line:rgba(226,196,140,.18);--muted:rgba(244,242,238,.62);--cream:#f4f2ee}
 body{background:radial-gradient(circle at 86% 4%,rgba(201,169,110,.12),transparent 25rem),var(--ink);letter-spacing:.01em}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.012) 42%,transparent 70%)}
 #intro{background:var(--ink)}
@@ -537,6 +537,18 @@ footer{border-color:var(--line)}
 .case-foot{color:rgba(244,242,238,.72)}
 footer p{color:rgba(244,242,238,.52)!important}
 footer p:last-child{color:rgba(201,169,110,.58)!important}
+
+/* Recruitment review: readable labels, reliable touch targets, and reduced motion. */
+.nav-links a{display:flex;align-items:center;min-height:44px}
+.ham{width:44px;height:44px;align-items:center;justify-content:center;padding:0}
+.h-cta,.h-scr,.a-contact-link,.case-open,.work-filter,.cf-btn,.lb-btn,#lb-close,#btt{min-height:44px}
+.h-eyebrow,.h-year{font-size:9.5px}.h-scr span{font-size:9px}.s-label{font-size:10px}
+.case-kicker,.case-type{font-size:10px!important}.case-tags span,.case-metrics,.case-stat span{font-size:9.5px}.case-foot{font-size:10px}
+.case-open{font-size:10px}.work-count,.work-meta small{font-size:10px}.work-filter{padding:10px 12px;font-size:10px}
+.cf-btn{padding:10px 16px;font-size:10px}.cert-chip{font-size:9px}.cert-meta-desc::before{font-size:9px}
+.lb-btn{font-size:9px;padding:9px 20px}footer p{font-size:10px}
+@media(max-width:700px){.case-foot{font-size:10px}.work-meta small{font-size:9.5px}.nav-links{gap:20px}.nav-links a{padding:10px 20px}.h-cta{min-height:44px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal,.reveal-l,.reveal-r{opacity:1!important;transform:none!important}}
 </style>
 <style>
 @media(min-width:1101px){.case-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -749,7 +761,7 @@ footer p:last-child{color:rgba(201,169,110,.58)!important}
       <img class="work-img" src="imgs/art-d2.png" alt="冰晶花語 3D 場景創作" loading="lazy"/>
       <span class="work-meta"><strong>冰晶花語</strong><small>Form, Light &amp; Atmosphere · Blender</small></span>
     </button>
-    <button type="button" class="work-card reveal" data-work-type="scene" aria-label="開啟 緋色流形 3D 創作">
+    <button type="button" class="work-card reveal" data-work-type="scene type" aria-label="開啟 緋色流形 3D 創作">
       <img class="work-img" src="imgs/art-d3.png" alt="緋色流形 3D 場景創作" loading="lazy"/>
       <span class="work-meta"><strong>緋色流形</strong><small>Form &amp; Material · Blender</small></span>
     </button>
@@ -785,7 +797,7 @@ footer p:last-child{color:rgba(201,169,110,.58)!important}
       <img class="work-img" src="imgs/art-d9.png" alt="紫焰行者 3D 場景創作" loading="lazy"/>
       <span class="work-meta"><strong>紫焰行者</strong><small>Character &amp; Scene · Blender</small></span>
     </button>
-    <button type="button" class="work-card reveal" data-work-type="object" aria-label="開啟 虹光露珠 3D 創作">
+    <button type="button" class="work-card reveal" data-work-type="object type" aria-label="開啟 虹光露珠 3D 創作">
       <img class="work-img" src="imgs/art-d10.png" alt="虹光露珠 3D 材質創作" loading="lazy"/>
       <span class="work-meta"><strong>虹光露珠</strong><small>Form &amp; Material · Blender</small></span>
     </button>
@@ -944,7 +956,7 @@ footer p:last-child{color:rgba(201,169,110,.58)!important}
     <span class="w-idx">05</span>
   </div>
   <p class="w-desc reveal" id="creds-desc">與品牌視覺、數位製作、時尚產業及專題成果相關的證照與獎項。</p>
-  <div class="cert-filters reveal"><button class="cf-btn on" data-filter="all">全部認證</button><button class="cf-btn" data-filter="international">國際認證</button><button class="cf-btn" data-filter="government">政府技術士</button><button class="cf-btn" data-filter="professional">專業認證</button><button class="cf-btn" data-filter="fashion">時尚產業</button><button class="cf-btn" data-filter="tech">數位技能</button><button class="cf-btn" data-filter="award">競賽獎項</button></div>
+  <div class="cert-filters reveal" role="group" aria-label="證照分類"><button type="button" class="cf-btn on" data-filter="all" aria-pressed="true">全部認證</button><button type="button" class="cf-btn" data-filter="international" aria-pressed="false">國際認證</button><button type="button" class="cf-btn" data-filter="government" aria-pressed="false">政府技術士</button><button type="button" class="cf-btn" data-filter="professional" aria-pressed="false">專業認證</button><button type="button" class="cf-btn" data-filter="fashion" aria-pressed="false">時尚產業</button><button type="button" class="cf-btn" data-filter="tech" aria-pressed="false">數位技能</button><button type="button" class="cf-btn" data-filter="award" aria-pressed="false">競賽獎項</button></div>
     <div class="cert-grid" id="cert-grid">
     <article class="cert-card" data-cat="international" data-key="adobe_ai" data-gtype="cert" role="button" tabindex="0" aria-label="開啟 Adobe Certified Professional 證書">
       <div class="cert-img-wrap"><img class="cert-main-img" src="imgs/cert-adobe_ai.jpg" alt="Adobe Certified Professional" loading="lazy" decoding="async"/></div>
@@ -1046,10 +1058,10 @@ footer p:last-child{color:rgba(201,169,110,.58)!important}
 </div>
 
 <!-- UNIVERSAL LIGHTBOX -->
-<div id="lb" role="dialog" aria-modal="true" aria-label="圖片檢視器">
+<div id="lb" role="dialog" aria-modal="true" aria-label="圖片檢視器" aria-hidden="true" inert>
   <div id="lb-inner">
     <button id="lb-close" aria-label="關閉圖片">✕</button>
-    <img id="lb-img" src="" alt=""/>
+    <img id="lb-img" alt=""/>
     <div id="lb-meta">
       <div id="lb-title"></div>
       <div id="lb-sub"></div>
@@ -1174,18 +1186,12 @@ function animCount(el){
 // ── CERT FILTER ────────────────────────────────────
 document.querySelectorAll('.cf-btn').forEach(function(btn){
   btn.addEventListener('click',function(){
-    document.querySelectorAll('.cf-btn').forEach(function(b){b.classList.remove('on');});
-    btn.classList.add('on');
+    document.querySelectorAll('.cf-btn').forEach(function(b){var active=b===btn;b.classList.toggle('on',active);b.setAttribute('aria-pressed',String(active));});
     var f=btn.dataset.filter;
     document.querySelectorAll('.cert-card').forEach(function(c){
       var hide=f==='creative'?c.dataset.cat==='other':f!=='all'&&c.dataset.cat!==f;
-      if(hide){
-        c.style.opacity='0';c.style.transform='translateY(6px) scale(.98)';
-        setTimeout(function(){c.classList.add('cf-hidden');c.style.opacity='';c.style.transform='';},260);
-      } else {
-        c.classList.remove('cf-hidden');
-        requestAnimationFrame(function(){c.style.opacity='1';c.style.transform='';});
-      }
+      c.classList.toggle('cf-hidden',hide);
+      c.style.opacity='';c.style.transform='';
     });
   });
 });
@@ -1234,17 +1240,21 @@ function getGalleryItems(){
     lightboxScrollY=window.scrollY;
     document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.top='-'+lightboxScrollY+'px';document.body.style.width='100%';
   }
+  lbImg.classList.remove('zoomed');lb.style.overflow='hidden';
   lbImg.src=it.src;lbImg.alt=it.title;lbT.textContent=it.title;lbS.textContent=it.sub;
   lbCounter.textContent=(idx+1)+' / '+items.length;
+  lb.removeAttribute('inert');lb.setAttribute('aria-hidden','false');
   lb.classList.add('open');
 }
 function closeLB(){
   if(!lb.classList.contains('open'))return;
   lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');lb.setAttribute('inert','');
+  lbImg.classList.remove('zoomed');lb.style.overflow='hidden';
   document.body.style.overflow='';document.body.style.position='';document.body.style.top='';document.body.style.width='';
   window.scrollTo(0,lightboxScrollY);
   if(lastFocusedElement&&typeof lastFocusedElement.focus==='function')lastFocusedElement.focus();
-  setTimeout(function(){lbImg.src='';lbImg.alt='';},350);
+  setTimeout(function(){lbImg.removeAttribute('src');lbImg.alt='';},350);
 }
 function navLB(dir){var items=getGalleryItems();curIdx=(curIdx+dir+items.length)%items.length;openLB(curGallery,curIdx);}
 
@@ -1282,7 +1292,7 @@ document.addEventListener('keydown',function(e){
   var filters=document.querySelectorAll('[data-work-filter]');
   var works=document.querySelectorAll('#work-grid .work-card');
   function setFilter(type){
-    works.forEach(function(work){work.classList.toggle('is-filtered',type!=='all'&&work.dataset.workType!==type);});
+    works.forEach(function(work){var types=(work.dataset.workType||'').split(/\s+/);work.classList.toggle('is-filtered',type!=='all'&&types.indexOf(type)===-1);});
     filters.forEach(function(filter){var active=filter.dataset.workFilter===type;filter.classList.toggle('is-active',active);filter.setAttribute('aria-pressed',String(active));});
   }
   filters.forEach(function(filter){filter.addEventListener('click',function(){setFilter(filter.dataset.workFilter);});});
@@ -1366,6 +1376,7 @@ document.getElementById('lb-img').addEventListener('click',function(e){
   var el=document.querySelector('.h-ey-type');
   if(!el)return;
   var phrases=['Brand Visual · Marketing · Content Creation','Creative Operations · Retail · Event Support','Adobe Certified · Color Strategy · 3D Art'];
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=phrases[0];el.style.opacity='1';return;}
   var pi=0,ci=0,deleting=false,pausing=false;
   el.style.borderRight='1px solid rgba(201,169,110,.6)';
   el.style.animation='none';
@@ -1400,7 +1411,7 @@ document.getElementById('lb-img').addEventListener('click',function(e){
   var closeButton=document.getElementById('case-modal-close');
   var previousFocus=null,caseScrollY=0;
   var caseData={
-  ip:{kicker:'01 · Graduation Exhibition · Visual / Editorial',title:'元福宙畢業展｜主視覺與專刊',summary:'畢業展團隊專案。以「元福宙」為策展主題，參與美宣分工，完成主視覺與專刊視覺整理。除了精選海報與跨頁，完整 25 頁專刊也保留在下方，讓閱讀者能直接查看整體編排、展演內容與作品脈絡。',process:['主視覺定調：以貓、達摩、元寶與海浪紋樣，建立「元福宙」的展演識別與正式海報。','專刊視覺整理：將角色圖像、色彩與版面語氣延伸至專刊封面與概念跨頁。','完整作品呈現：提供 25 頁專刊原檔，讓閱讀者可檢視完整內容，而非只看幾張精選圖。'],images:['imgs/cases/graduation-poster-1.jpg','imgs/cases/booklet-page-01.png','imgs/cases/booklet-page-03.png'],details:[['負責內容','美宣分工：參與主視覺角色、圖像元素、海報與專刊視覺編排的整理。'],['做法','將角色、色彩、海浪紋樣與版面語氣整理為可重複使用的視覺規則。'],['成果與佐證','完成正式海報、專刊視覺與 25 頁完整 PDF，讓成果可被完整閱讀。']],url:'imgs/cases/ltu-graduation-booklet.pdf',urlLabel:'閱讀完整專刊 · 25 頁 PDF（約 48 MB）'},
+  ip:{kicker:'01 · Graduation Exhibition · Visual / Editorial',title:'元福宙畢業展｜主視覺與專刊',summary:'畢業展團隊專案。以「元福宙」為策展主題，參與美宣分工，完成主視覺與專刊視覺整理。除了精選海報與跨頁，完整 25 頁專刊也保留在下方，讓閱讀者能直接查看整體編排、展演內容與作品脈絡。',process:['主視覺定調：以貓、達摩、元寶與海浪紋樣，建立「元福宙」的展演識別與正式海報。','專刊視覺整理：將角色圖像、色彩與版面語氣延伸至專刊封面與概念跨頁。','完整作品呈現：提供 25 頁專刊，讓閱讀者查看完整內容，而非只看幾張精選圖。'],images:['imgs/cases/graduation-poster-1.jpg','imgs/cases/booklet-page-01.png','imgs/cases/booklet-page-03.png'],details:[['負責內容','美宣分工：參與主視覺角色、圖像元素、海報與專刊視覺編排的整理。'],['做法','將角色、色彩、海浪紋樣與版面語氣整理為可重複使用的視覺規則。'],['成果與佐證','完成正式海報、專刊視覺與 25 頁完整 PDF。']],url:'imgs/cases/ltu-graduation-booklet.pdf',urlLabel:'閱讀完整專刊 · 25 頁 PDF（約 8 MB）'},
   scent:{kicker:'02 · Team Consumer Insight',title:'香水偏好研究：消費者洞察',summary:'團隊研究，高齊為組員之一。以 207 份有效問卷比較世代、性別、香調與選購因素，將結果整理為品牌溝通可參考的受眾洞察。',process:['定義研究問題：聚焦世代、性別、香調與選購因素。','蒐集與比較：整理 207 份有效問卷，進行統計與交叉比較。','轉譯洞察：將資料整理為品牌溝通與受眾理解的參考。'],images:['imgs/cases/scent-results-sheet.png','imgs/cases/scent-analysis-sheet.png'],details:[['負責內容','團隊研究組員之一，參與將香水偏好與購買考量整理為可比較的研究題目。'],['做法','以 207 份有效問卷，針對世代、性別、香調與選購因素進行統計與交叉比較。'],['成果','將研究結果整理為受眾理解、香調溝通與產品定位可參考的洞察。']]},
   lab:{kicker:'03 · Independent Digital Product',title:'Blender 材質節點學習站',summary:'個人獨立開發的雙語互動學習網站。把材質節點從「看不懂的設定」整理為能查、能做、能立即看見結果的練習流程。',process:['規劃學習流程：把複雜節點拆成可查閱、可實作的內容。','製作互動工具：加入自由接線、即時 3D 預覽與步驟驗證。','建立持續使用性：提供雙語百科、教學、參考表與疑難排解。'],images:['imgs/cases/blender-node-lab.png'],details:[['負責內容','個人專案：規劃內容架構、功能流程與介面，設定初學者從理解到練習的路徑。'],['做法','把節點知識拆成百科、引導教學、自由接線與即時 3D 預覽等操作內容。'],['成果','完成可操作的雙語學習原型，提供節點練習、材質參考與疑難排解。']],url:'https://kc09393.github.io/blender-node-lab/',urlLabel:'開啟 Blender 材質節點學習站'}
   };
@@ -1409,6 +1420,7 @@ document.getElementById('lb-img').addEventListener('click',function(e){
   function closeCase(){if(!modal.classList.contains('open'))return;modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';document.body.style.position='';document.body.style.top='';document.body.style.width='';window.scrollTo(0,caseScrollY);if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();}
   document.querySelectorAll('.case-open').forEach(function(button){button.addEventListener('click',function(){openCase(button.dataset.case);});});
   closeButton.addEventListener('click',closeCase);modal.addEventListener('click',function(event){if(event.target===modal)closeCase();});document.addEventListener('keydown',function(event){if(event.key==='Escape'&&modal.classList.contains('open'))closeCase();});
+  modal.addEventListener('keydown',function(event){if(event.key!=='Tab'||!modal.classList.contains('open'))return;var focusable=modal.querySelectorAll('button,a[href]');var first=focusable[0],last=focusable[focusable.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});
 })();
 
 </script>
